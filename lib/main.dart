@@ -1,3 +1,7 @@
+import 'package:event_planning_pojo/screens/start_screen/start_screen.dart';
+import 'package:event_planning_pojo/theme/dark_theme.dart';
+import 'package:event_planning_pojo/theme/light_theme.dart';
+import 'package:event_planning_pojo/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,12 +13,16 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    BaseTheme lightTheme = LightTheme();
+    BaseTheme darkTheme = DarkTheme();
+
+    return MaterialApp(
+      theme: lightTheme.themeData,
+      darkTheme: darkTheme.themeData,
+      initialRoute: StartScreen.tag,
+      routes: {
+        StartScreen.tag: (context) => const StartScreen(),
+      },
     );
   }
 }
