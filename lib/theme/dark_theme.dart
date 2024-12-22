@@ -33,6 +33,7 @@ class DarkTheme extends BaseTheme {
   
   @override
   ThemeData get themeData => ThemeData(
+        indicatorColor: accentColor,
         primaryColor: primaryColor,
         scaffoldBackgroundColor: backgroundColor,
         appBarTheme: AppBarTheme(

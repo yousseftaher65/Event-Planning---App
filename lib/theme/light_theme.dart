@@ -33,6 +33,7 @@ class LightTheme extends BaseTheme {
   
   @override
   ThemeData get themeData => ThemeData(
+    indicatorColor: accentColor,
     primaryColor: primaryColor,
     scaffoldBackgroundColor: backgroundColor,
     appBarTheme: AppBarTheme(

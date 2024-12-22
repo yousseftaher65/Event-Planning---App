@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/providers/theme_provider.dart';
+import 'package:event_planning_pojo/screens/intro_screens/intor_screen.dart';
+import 'package:event_planning_pojo/screens/login_screen/login_screen.dart';
 import 'package:event_planning_pojo/screens/start_screen/start_screen.dart';
 import 'package:event_planning_pojo/theme/dark_theme.dart';
 import 'package:event_planning_pojo/theme/light_theme.dart';
@@ -46,6 +48,8 @@ class MainApp extends StatelessWidget {
       initialRoute: StartScreen.tag,
       routes: {
         StartScreen.tag: (context) => const StartScreen(),
+        IntroScreen.tag: (context) =>  IntroScreen(),
+        LoginScreen.tag: (context) =>  LoginScreen(),
       },
     );
   }
