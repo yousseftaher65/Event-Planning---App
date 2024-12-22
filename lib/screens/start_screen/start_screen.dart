@@ -1,5 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class StartScreen extends StatelessWidget {
   static const String tag = "StartScreen";
@@ -7,6 +12,8 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -45,6 +52,33 @@ class StartScreen extends StatelessWidget {
                       .titleMedium!
                       .copyWith(color: Theme.of(context).primaryColor),
                 ),
+                ToggleSwitch(
+                  minWidth: 73,
+                  minHeight: 30,
+                  cornerRadius: 20.0,
+                  activeBgColors: [
+                    [ Colors.white,Colors.red[800]! ,Colors.lightBlue],
+                    [Colors.white,Colors.green[800]! , Colors.yellow[800]!],
+                  ],
+                  activeFgColor: Colors.white,
+                  inactiveBgColor: Colors.transparent,
+                  inactiveFgColor: Colors.black,
+                  initialLabelIndex: context.locale.languageCode == 'ar' ? 1 : 0,
+                  totalSwitches: 2,
+                  icons: [
+                    FontAwesomeIcons.flagUsa,
+                    MdiIcons.abjadArabic,
+                  ],
+                  radiusStyle: true,
+                  onToggle: (index) {
+                    if(index == 1){
+                      context.setLocale(Locale('ar'),);
+                    }else{
+                      context.setLocale(Locale('en'),);
+                    }
+                    print('switched to: $index');
+                  },
+                ),
               ],
             ),
             Row(
@@ -57,16 +91,42 @@ class StartScreen extends StatelessWidget {
                       .titleMedium!
                       .copyWith(color: Theme.of(context).primaryColor),
                 ),
+                ToggleSwitch(
+                  minWidth: 73,
+                  minHeight: 30,
+                  cornerRadius: 20.0,
+                  activeBgColors: [
+                    [Theme.of(context).primaryColor],
+                    [Theme.of(context).primaryColor]
+                  ],
+                  activeFgColor: Colors.white,
+                  inactiveBgColor: Colors.transparent,
+                  inactiveFgColor: Theme.of(context).primaryColor ,
+                  initialLabelIndex: themeProvider.themeMode == ThemeMode.dark ? 1 : 0,
+                  totalSwitches: 2,
+                  icons: [
+                    FontAwesomeIcons.sun,
+                    FontAwesomeIcons.moon,
+                  ],
+                  radiusStyle: true,
+                  onToggle: (index) {
+                    themeProvider.changeTheme();
+                    print('switched to: $index');
+                  },
+                ),
               ],
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text(
-                "lets_start".tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: Colors.white),
+            Container(
+              margin: const EdgeInsets.only(top: 16),
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  "lets_start".tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.white),
+                ),
               ),
             ),
           ],

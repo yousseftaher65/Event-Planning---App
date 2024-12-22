@@ -1,19 +1,27 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/providers/theme_provider.dart';
 import 'package:event_planning_pojo/screens/start_screen/start_screen.dart';
 import 'package:event_planning_pojo/theme/dark_theme.dart';
 import 'package:event_planning_pojo/theme/light_theme.dart';
 import 'package:event_planning_pojo/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(
-    EasyLocalization(
-      supportedLocales: [Locale('en'), Locale('ar')],
-      fallbackLocale: Locale('en'),
-      path: 'assets/translations',
-      child: MainApp(),
+    ChangeNotifierProvider(
+
+      create: (BuildContext context) { 
+        return ThemeProvider();
+      },
+      child: EasyLocalization(
+        supportedLocales: [Locale('en'), Locale('ar')],
+        fallbackLocale: Locale('en'),
+        path: 'assets/translations',
+        child: MainApp(),
+      ),
     ),
   );
 }
@@ -23,6 +31,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     BaseTheme lightTheme = LightTheme();
     BaseTheme darkTheme = DarkTheme();
 
@@ -33,7 +42,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme.themeData,
       darkTheme: darkTheme.themeData,
-      themeMode: ThemeMode.light,
+      themeMode: themeProvider.themeMode,
       initialRoute: StartScreen.tag,
       routes: {
         StartScreen.tag: (context) => const StartScreen(),
