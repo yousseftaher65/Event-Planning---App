@@ -76,7 +76,6 @@ class StartScreen extends StatelessWidget {
                     }else{
                       context.setLocale(Locale('en'),);
                     }
-                    print('switched to: $index');
                   },
                 ),
               ],
@@ -111,7 +110,6 @@ class StartScreen extends StatelessWidget {
                   radiusStyle: true,
                   onToggle: (index) {
                     themeProvider.changeTheme();
-                    print('switched to: $index');
                   },
                 ),
               ],
