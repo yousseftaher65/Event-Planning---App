@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/cache/introduction_cache.dart';
 import 'package:event_planning_pojo/providers/theme_provider.dart';
 import 'package:event_planning_pojo/screens/intro_screens/intor_screen.dart';
-import 'package:event_planning_pojo/screens/login_screen/login_screen.dart';
+import 'package:event_planning_pojo/screens/signIn_screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

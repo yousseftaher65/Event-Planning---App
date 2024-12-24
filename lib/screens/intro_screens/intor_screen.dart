@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/cache/introduction_cache.dart';
-import 'package:event_planning_pojo/screens/login_screen/login_screen.dart';
+import 'package:event_planning_pojo/screens/signIn_screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
