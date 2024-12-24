@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/cache/introduction_cache.dart';
 import 'package:event_planning_pojo/providers/theme_provider.dart';
 import 'package:event_planning_pojo/screens/intro_screens/intor_screen.dart';
+import 'package:event_planning_pojo/screens/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -14,6 +16,7 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
+    //var eligibility = IntroductionCache.getEligibility() ?? false;
 
     return Scaffold(
       appBar: AppBar(
@@ -118,9 +121,14 @@ class StartScreen extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 16),
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, IntroScreen.tag);
-                },
+                onPressed: () /* async */ {
+                    bool eligibility = IntroductionCache.getEligibility() ?? false;
+                   /* await IntroductionCache.saveStart(); */
+                    // Navigate based on eligibility
+                    Navigator.pushReplacementNamed(
+                      context,
+                      eligibility ? LoginScreen.tag : IntroScreen.tag,);
+                 },
                 child: Text(
                   "lets_start".tr(),
                   style: Theme.of(context)

@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/cache/introduction_cache.dart';
 import 'package:event_planning_pojo/screens/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -46,32 +47,35 @@ class IntroScreen extends StatelessWidget {
           color: Theme.of(context).indicatorColor),
       globalBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
       showDoneButton: true,
-      onDone: () /* async */ {
-        // await CacheHelper.saveEligibility();
-        Navigator.pushReplacementNamed(context, LoginScreen.tag);
+      onDone: () async {
+          await IntroductionCache.saveEligibility(); // Assuming eligibility is true
+          
+          Navigator.pushReplacementNamed(context, LoginScreen.tag); // Navigate to the Login screen
       },
       showNextButton: true,
       nextStyle: ButtonStyle(
-          shape: WidgetStatePropertyAll(
-            CircleBorder(
-              side: BorderSide(width: 2, color: Theme.of(context).primaryColor),
-            ),
-          ),
-          overlayColor: WidgetStatePropertyAll(Colors.transparent),),
-      backStyle: ButtonStyle(
-          shape: WidgetStatePropertyAll(
-
-            CircleBorder(
-              side: BorderSide(width: 2, color: Theme.of(context).primaryColor),
-            ),
-          ),
-          overlayColor: WidgetStatePropertyAll(Colors.transparent),),
-      doneStyle: ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(Colors.transparent),
-          shape: WidgetStatePropertyAll(CircleBorder(
+        shape: WidgetStatePropertyAll(
+          CircleBorder(
             side: BorderSide(width: 2, color: Theme.of(context).primaryColor),
-          )),
-          overlayColor: WidgetStatePropertyAll(Colors.transparent),),
+          ),
+        ),
+        overlayColor: WidgetStatePropertyAll(Colors.transparent),
+      ),
+      backStyle: ButtonStyle(
+        shape: WidgetStatePropertyAll(
+          CircleBorder(
+            side: BorderSide(width: 2, color: Theme.of(context).primaryColor),
+          ),
+        ),
+        overlayColor: WidgetStatePropertyAll(Colors.transparent),
+      ),
+      doneStyle: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(Colors.transparent),
+        shape: WidgetStatePropertyAll(CircleBorder(
+          side: BorderSide(width: 2, color: Theme.of(context).primaryColor),
+        )),
+        overlayColor: WidgetStatePropertyAll(Colors.transparent),
+      ),
       showBackButton: true,
       back: Icon(
         Icons.arrow_back,

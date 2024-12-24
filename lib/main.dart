@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/cache/introduction_cache.dart';
 import 'package:event_planning_pojo/providers/theme_provider.dart';
 import 'package:event_planning_pojo/screens/intro_screens/intor_screen.dart';
 import 'package:event_planning_pojo/screens/login_screen/login_screen.dart';
@@ -12,6 +13,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await IntroductionCache.init();
   runApp(
     ChangeNotifierProvider(
 
@@ -22,14 +24,16 @@ void main() async {
         supportedLocales: [Locale('en'), Locale('ar')],
         fallbackLocale: Locale('en'),
         path: 'assets/translations',
-        child: MainApp(),
+        child: MainApp(
+        ),
       ),
     ),
   );
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  /* final String initialRoute; */
+  const MainApp({super.key, /* required this.initialRoute */});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,7 @@ class MainApp extends StatelessWidget {
       theme: lightTheme.themeData,
       darkTheme: darkTheme.themeData,
       themeMode: themeProvider.themeMode,
-      initialRoute: StartScreen.tag,
+      initialRoute: /* IntroductionCache.getStart() == true ? IntroScreen.tag : */ StartScreen.tag,
       routes: {
         StartScreen.tag: (context) => const StartScreen(),
         IntroScreen.tag: (context) =>  IntroScreen(),
