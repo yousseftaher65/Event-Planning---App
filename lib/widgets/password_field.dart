@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PasswordField extends StatelessWidget {
-  const PasswordField({super.key ,});
+  final String label;
+  const PasswordField({super.key ,  this.label = 'Password'});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class PasswordField extends StatelessWidget {
       // },
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.lock_rounded),
-        labelText: "Password",
+        labelText: label,
         suffixIcon: Icon(Icons.visibility_off_rounded , color: Theme.of(context).inputDecorationTheme.prefixIconColor,),
       ),
     );

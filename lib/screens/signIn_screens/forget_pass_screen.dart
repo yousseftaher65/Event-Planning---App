@@ -26,7 +26,7 @@ class ForgetPassScreen extends StatelessWidget {
             SizedBox(height: 24,),
             InputField(label: 'Email', icon: Icons.email_rounded,),
             SizedBox(height: 24,),
-            ElevatedButton(onPressed: (){}, child: Text('Reset Password' ,style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),))
+            ElevatedButton(onPressed: (){}, child: Text('Reset Password' ,style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),))
           ],
         ),
       ),
