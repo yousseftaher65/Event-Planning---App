@@ -21,8 +21,9 @@ class IntroScreen extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
       bodyTextStyle: bodyStyle!,
-      bodyPadding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+      bodyPadding: EdgeInsets.only(left: 16.0,right: 16.0,),
       imagePadding: EdgeInsets.zero,
+      
       fullScreen: false,
       bodyAlignment: Alignment.center,
       imageAlignment: Alignment.bottomCenter,
@@ -48,9 +49,8 @@ class IntroScreen extends StatelessWidget {
       globalBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
       showDoneButton: true,
       onDone: () async {
-          await IntroductionCache.saveEligibility(); // Assuming eligibility is true
-          
-          Navigator.pushReplacementNamed(context, LoginScreen.tag); // Navigate to the Login screen
+        await IntroductionCache.saveEligibility();
+        Navigator.pushReplacementNamed(context, LoginScreen.tag);
       },
       showNextButton: true,
       nextStyle: ButtonStyle(

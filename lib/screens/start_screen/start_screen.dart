@@ -28,13 +28,13 @@ class StartScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 28),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: 28,
           children: [
             Image.asset(
               'assets/images/startBg.png',
               width: double.infinity,
               fit: BoxFit.fill,
             ),
+            SizedBox(height: 28),
             Text(
               "intorduction_title".tr(),
               style: Theme.of(context)
@@ -42,10 +42,12 @@ class StartScreen extends StatelessWidget {
                   .titleMedium!
                   .copyWith(color: Theme.of(context).primaryColor),
             ),
+            SizedBox(height: 28),
             Text(
               "intorduction_body".tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
+            SizedBox(height: 28),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -84,6 +86,7 @@ class StartScreen extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 28),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -118,24 +121,22 @@ class StartScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              child: ElevatedButton(
-                onPressed: () /* async */ {
-                    bool eligibility = IntroductionCache.getEligibility() ?? false;
-                   /* await IntroductionCache.saveStart(); */
-                    // Navigate based on eligibility
-                    Navigator.pushReplacementNamed(
-                      context,
-                      eligibility ? LoginScreen.tag : IntroScreen.tag,);
-                 },
-                child: Text(
-                  "lets_start".tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.white),
-                ),
+            SizedBox(height: 28),
+            ElevatedButton(
+              onPressed: () async {
+                await IntroductionCache.saveStart();
+                bool? eligibility = IntroductionCache.getEligibility();
+                Navigator.pushReplacementNamed(
+                  context,
+                  (eligibility == true) ? LoginScreen.tag : IntroScreen.tag,
+                );
+              },
+              child: Text(
+                "lets_start".tr(),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: Colors.white),
               ),
             ),
           ],

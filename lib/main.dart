@@ -14,6 +14,18 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await IntroductionCache.init();
+
+  bool? start = IntroductionCache.getStart();
+  bool? eligibility = IntroductionCache.getEligibility();
+  
+
+  String initialRoute;
+  if (start == true) {
+    initialRoute = eligibility == true ? LoginScreen.tag : IntroScreen.tag;
+  } else {
+    initialRoute = StartScreen.tag;
+  }
+
   runApp(
     ChangeNotifierProvider(
 
@@ -25,6 +37,7 @@ void main() async {
         fallbackLocale: Locale('en'),
         path: 'assets/translations',
         child: MainApp(
+          initialRoute: initialRoute
         ),
       ),
     ),
@@ -32,8 +45,8 @@ void main() async {
 }
 
 class MainApp extends StatelessWidget {
-  /* final String initialRoute; */
-  const MainApp({super.key, /* required this.initialRoute */});
+  final String initialRoute;
+  const MainApp({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +62,7 @@ class MainApp extends StatelessWidget {
       theme: lightTheme.themeData,
       darkTheme: darkTheme.themeData,
       themeMode: themeProvider.themeMode,
-      initialRoute: /* IntroductionCache.getStart() == true ? IntroScreen.tag : */ StartScreen.tag,
+      initialRoute:  initialRoute,// IntroductionCache.getStart() == true ? IntroScreen.tag : StartScreen.tag,
       routes: {
         StartScreen.tag: (context) => const StartScreen(),
         IntroScreen.tag: (context) =>  IntroScreen(),
