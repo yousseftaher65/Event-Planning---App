@@ -7,7 +7,7 @@ class ProfileTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        
+        Text('Profile Tab'),
       ],
     );
   }

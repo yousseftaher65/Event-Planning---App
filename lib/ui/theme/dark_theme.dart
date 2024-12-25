@@ -41,10 +41,22 @@ class DarkTheme extends BaseTheme {
           centerTitle: true,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: backgroundColor,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: TextStyle(
+            fontFamily: GoogleFonts.inter().fontFamily,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+          unselectedLabelStyle: TextStyle(
+            fontFamily: GoogleFonts.inter().fontFamily,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+          backgroundColor: primaryColor,
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          selectedItemColor: primaryColor,
+          selectedItemColor: iconColor,
           unselectedItemColor: iconColor,
         ),
         textTheme: TextTheme(
