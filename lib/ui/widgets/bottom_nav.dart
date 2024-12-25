@@ -43,10 +43,12 @@ class _BottomNavState extends State<BottomNav> {
   Widget _buildNavItem(String imageName, int index , BuildContext context) {
     return currentIndex == index
         ? ImageIcon(
+          
           AssetImage('assets/icons/${imageName}Icon2.png'),
         )
         : ImageIcon(
-            AssetImage('assets/icons/${imageName}Icon.png'),
+          
+            AssetImage('assets/icons/${imageName}Icon.png',),
           );
   }
 }

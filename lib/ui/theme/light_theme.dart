@@ -36,6 +36,16 @@ class LightTheme extends BaseTheme {
     indicatorColor: accentColor,
     primaryColor: primaryColor,
     scaffoldBackgroundColor: backgroundColor,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      elevation: 0,
+      shape: CircleBorder(
+        side: BorderSide(
+          color: secondaryColor,
+          width: 4,
+        ),
+      ),
+      backgroundColor: primaryColor,
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: backgroundColor,
       centerTitle: true,
