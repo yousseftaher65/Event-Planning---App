@@ -29,8 +29,7 @@ class DarkTheme extends BaseTheme {
 
   @override
   Color get errorColor => Colors.red;
-  
-  
+
   @override
   ThemeData get themeData => ThemeData(
         indicatorColor: accentColor,
@@ -95,7 +94,8 @@ class DarkTheme extends BaseTheme {
               width: 2,
             ),
           ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 16 , horizontal: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           labelStyle: TextStyle(color: borderColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
@@ -119,7 +119,21 @@ class DarkTheme extends BaseTheme {
             ),
           ),
         ),
+        searchBarTheme: SearchBarThemeData(
+          elevation: WidgetStatePropertyAll(0),
+          backgroundColor: WidgetStatePropertyAll(secondaryColor),
+          shape: WidgetStatePropertyAll(
+            RoundedRectangleBorder(
+              side: BorderSide(color: primaryColor, width: 1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          padding: WidgetStatePropertyAll(
+            EdgeInsets.symmetric(horizontal: 16),
+          ),
+          hintStyle: WidgetStatePropertyAll(
+            TextStyle(color: primaryColor),
+          ),
+        ),
       );
-  
-
 }
