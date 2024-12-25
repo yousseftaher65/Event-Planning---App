@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({super.key});
+  final String imageName;
+  const EventCard({super.key , required this.imageName});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class EventCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.asset('assets/images/gaming.png'),
+                  child: Image.asset('assets/images/$imageName.png'),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
