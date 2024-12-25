@@ -25,7 +25,7 @@ class DarkTheme extends BaseTheme {
   Color get iconColor => accentColor;
 
   @override
-  Color get borderColor => Colors.transparent;
+  Color get borderColor => primaryColor;
 
   @override
   Color get errorColor => Colors.red;
@@ -70,6 +70,40 @@ class DarkTheme extends BaseTheme {
             backgroundColor: primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          prefixIconColor: borderColor,
+          errorStyle: TextStyle(color: errorColor),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: errorColor,
+              width: 2,
+            ),
+          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16 , horizontal: 16),
+          labelStyle: TextStyle(color: borderColor),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: borderColor,
+              width: 2,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: borderColor,
+              width: 2,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: borderColor,
+              width: 2,
             ),
           ),
         ),
