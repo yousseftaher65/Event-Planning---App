@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       size: 30, 
       color: Colors.white,),
       ),
-      extendBody: true,
+      //extendBody: true,
       body: tabs[currentIndex],
       bottomNavigationBar: BottomNav(
         callBack: (index){
