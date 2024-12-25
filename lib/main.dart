@@ -1,14 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:event_planning_pojo/cache/introduction_cache.dart';
-import 'package:event_planning_pojo/providers/theme_provider.dart';
-import 'package:event_planning_pojo/screens/intro_screens/intor_screen.dart';
-import 'package:event_planning_pojo/screens/signIn_screens/forget_pass_screen.dart';
-import 'package:event_planning_pojo/screens/signIn_screens/login_screen.dart';
-import 'package:event_planning_pojo/screens/signIn_screens/register_screen.dart';
-import 'package:event_planning_pojo/screens/start_screen/start_screen.dart';
-import 'package:event_planning_pojo/theme/dark_theme.dart';
-import 'package:event_planning_pojo/theme/light_theme.dart';
-import 'package:event_planning_pojo/theme/theme.dart';
+import 'package:event_planning_pojo/ui/cache/introduction_cache.dart';
+import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
+import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
+import 'package:event_planning_pojo/ui/screens/home/tabs/create_event_tab/create_event_tab.dart';
+import 'package:event_planning_pojo/ui/screens/intro_screens/intor_screen.dart';
+import 'package:event_planning_pojo/ui/screens/signIn_screens/forget_pass_screen.dart';
+import 'package:event_planning_pojo/ui/screens/signIn_screens/login_screen.dart';
+import 'package:event_planning_pojo/ui/screens/signIn_screens/register_screen.dart';
+import 'package:event_planning_pojo/ui/screens/start_screen/start_screen.dart';
+import 'package:event_planning_pojo/ui/theme/dark_theme.dart';
+import 'package:event_planning_pojo/ui/theme/light_theme.dart';
+import 'package:event_planning_pojo/ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -71,6 +73,8 @@ class MainApp extends StatelessWidget {
         LoginScreen.tag: (context) =>  LoginScreen(),
         RegisterScreen.tag: (context) =>  RegisterScreen(),
         ForgetPassScreen.tag: (context) =>  ForgetPassScreen(),
+        HomeScreen.tag: (context) =>  HomeScreen(),
+        CreateEventTab.tag: (context) =>  CreateEventTab(),
       },
     );
   }
