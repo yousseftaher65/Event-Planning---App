@@ -1,3 +1,4 @@
+import 'package:event_planning_pojo/ui/screens/home/tabs/create_event_tab/create_event_tab.dart';
 import 'package:event_planning_pojo/ui/screens/home/tabs/fav_tab/fav_tab.dart';
 import 'package:event_planning_pojo/ui/screens/home/tabs/home_tab.dart/home_tab.dart';
 import 'package:event_planning_pojo/ui/screens/home/tabs/map_tab/map_tab.dart';
@@ -23,7 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(onPressed: (){},
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.pushNamed(context, CreateEventTab.tag);
+      },
       backgroundColor: Theme.of(context).primaryColor,
       child: Icon(Icons.add,
       size: 30, 
