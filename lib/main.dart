@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/cache/introduction_cache.dart';
 import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
+import 'package:event_planning_pojo/ui/screens/event_details_screen/event_details_screen.dart';
 import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
 import 'package:event_planning_pojo/ui/screens/home/tabs/create_event_tab/create_event_tab.dart';
 import 'package:event_planning_pojo/ui/screens/intro_screens/intor_screen.dart';
@@ -75,6 +76,7 @@ class MainApp extends StatelessWidget {
         ForgetPassScreen.tag: (context) =>  ForgetPassScreen(),
         HomeScreen.tag: (context) =>  HomeScreen(),
         CreateEventTab.tag: (context) =>  CreateEventTab(),
+        EventDetailsScreen.tag: (context) =>  EventDetailsScreen(),
       },
     );
   }

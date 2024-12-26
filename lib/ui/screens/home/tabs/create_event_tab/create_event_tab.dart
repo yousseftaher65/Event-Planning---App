@@ -1,4 +1,5 @@
 import 'package:event_planning_pojo/ui/providers/category_event_provider.dart';
+import 'package:event_planning_pojo/ui/screens/event_details_screen/event_details_screen.dart';
 import 'package:event_planning_pojo/ui/widgets/category_event_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -103,7 +104,8 @@ class CreateEventTab extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Icon(FontAwesomeIcons.calendarDays,
+                        Icon(Icons.calendar_month_outlined,
+                        size: 30,
                             color:
                                 Theme.of(context).textTheme.bodyLarge!.color),
                         SizedBox(
@@ -129,6 +131,7 @@ class CreateEventTab extends StatelessWidget {
                     Row(
                       children: [
                         Icon(FontAwesomeIcons.clock,
+                        size: 30,
                             color:
                                 Theme.of(context).textTheme.bodyLarge!.color),
                         SizedBox(
@@ -187,6 +190,8 @@ class CreateEventTab extends StatelessWidget {
                                 .textTheme
                                 .bodyLarge!
                                 .copyWith(
+                                    fontFamily: GoogleFonts.inter().fontFamily,
+                                    fontWeight: FontWeight.normal,
                                     color: Theme.of(context).primaryColor),
                           ),
                           Spacer(),
@@ -201,9 +206,14 @@ class CreateEventTab extends StatelessWidget {
                       height: 16,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, EventDetailsScreen.tag);
+                      },
                       child: Text('Create Event',
-                          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: Colors.white)),
                     )
                   ],
                 ),
