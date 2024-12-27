@@ -1,3 +1,4 @@
+import 'package:event_planning_pojo/ui/screens/edit_event_sereen/edit_event.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +20,9 @@ class EventDetailsScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, EditEvent.tag);
+            },
             icon: ImageIcon(
               AssetImage('assets/icons/editIcon.png'),
             ),
