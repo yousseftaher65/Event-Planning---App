@@ -5,11 +5,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class CreateEventTab extends StatelessWidget {
-  static const tag = 'CreateEventTab';
-  const CreateEventTab({super.key});
+class EditEvent extends StatelessWidget {
+  static const tag = 'EditEvent';
+  const EditEvent({super.key});
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (BuildContext context) => CategoryEventProvider(),
@@ -104,7 +104,7 @@ class CreateEventTab extends StatelessWidget {
                     Row(
                       children: [
                         Icon(Icons.calendar_month_outlined,
-                        size: 30,
+                            size: 30,
                             color:
                                 Theme.of(context).textTheme.bodyLarge!.color),
                         SizedBox(
@@ -116,7 +116,7 @@ class CreateEventTab extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          'Choose Date',
+                          '30/11/2024',
                           style:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     color: Theme.of(context).primaryColor,
@@ -130,7 +130,7 @@ class CreateEventTab extends StatelessWidget {
                     Row(
                       children: [
                         Icon(FontAwesomeIcons.clock,
-                        size: 30,
+                            size: 30,
                             color:
                                 Theme.of(context).textTheme.bodyLarge!.color),
                         SizedBox(
@@ -142,7 +142,7 @@ class CreateEventTab extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          'Choose Time',
+                          '11:22PM',
                           style:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     color: Theme.of(context).primaryColor,
@@ -184,7 +184,7 @@ class CreateEventTab extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            'Choose Event Location',
+                            'Cairo, Egypt',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
@@ -206,7 +206,7 @@ class CreateEventTab extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {},
-                      child: Text('Create Event',
+                      child: Text('Update Event',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!

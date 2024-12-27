@@ -1,4 +1,5 @@
 import 'package:event_planning_pojo/ui/providers/category_event_provider.dart';
+import 'package:event_planning_pojo/ui/screens/event_details_screen/event_details_screen.dart';
 import 'package:event_planning_pojo/ui/widgets/event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -134,8 +135,13 @@ class HomeTab extends StatelessWidget {
                     separatorBuilder: (context, index) => SizedBox(height: 16),
                     itemCount: provaider.categoryList.length,
                     itemBuilder: (context, index) {
-                      return EventCard(
-                        imageName: provaider.categoryList[index],
+                      return InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, EventDetailsScreen.tag);
+                        },
+                        child: EventCard(
+                          imageName: provaider.categoryList[index],
+                        ),
                       );
                     },
                   ),
