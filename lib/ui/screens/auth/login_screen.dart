@@ -1,6 +1,6 @@
 import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
-import 'package:event_planning_pojo/ui/screens/signIn_screens/forget_pass_screen.dart';
-import 'package:event_planning_pojo/ui/screens/signIn_screens/register_screen.dart';
+import 'package:event_planning_pojo/ui/screens/auth/forget_pass_screen.dart';
+import 'package:event_planning_pojo/ui/screens/auth/register_screen.dart';
 import 'package:event_planning_pojo/ui/widgets/input_field.dart';
 import 'package:event_planning_pojo/ui/widgets/password_field.dart';
 import 'package:flutter/material.dart';

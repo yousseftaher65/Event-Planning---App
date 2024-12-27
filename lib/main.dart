@@ -5,9 +5,9 @@ import 'package:event_planning_pojo/ui/screens/event_details_screen/event_detail
 import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
 import 'package:event_planning_pojo/ui/screens/home/tabs/create_event_tab/create_event_tab.dart';
 import 'package:event_planning_pojo/ui/screens/intro_screens/intor_screen.dart';
-import 'package:event_planning_pojo/ui/screens/signIn_screens/forget_pass_screen.dart';
-import 'package:event_planning_pojo/ui/screens/signIn_screens/login_screen.dart';
-import 'package:event_planning_pojo/ui/screens/signIn_screens/register_screen.dart';
+import 'package:event_planning_pojo/ui/screens/auth/forget_pass_screen.dart';
+import 'package:event_planning_pojo/ui/screens/auth/login_screen.dart';
+import 'package:event_planning_pojo/ui/screens/auth/register_screen.dart';
 import 'package:event_planning_pojo/ui/screens/start_screen/start_screen.dart';
 import 'package:event_planning_pojo/ui/theme/dark_theme.dart';
 import 'package:event_planning_pojo/ui/theme/light_theme.dart';
