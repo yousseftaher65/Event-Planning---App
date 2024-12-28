@@ -45,10 +45,21 @@ class LightTheme extends BaseTheme {
           ),
           backgroundColor: primaryColor,
         ),
+
+        //App Bar Theme
         appBarTheme: AppBarTheme(
-          backgroundColor: backgroundColor,
+          iconTheme: IconThemeData(color: secondaryColor),
+          surfaceTintColor: primaryColor,
+          titleTextStyle: TextStyle(
+            fontFamily: GoogleFonts.inter().fontFamily,
+            fontWeight: FontWeight.normal,
+            fontSize: 24,
+            color: secondaryColor),
+          backgroundColor: primaryColor,
           centerTitle: true,
         ),
+
+        // Bottom Nav Theme
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           elevation: 0,
           type: BottomNavigationBarType.fixed,
@@ -68,6 +79,8 @@ class LightTheme extends BaseTheme {
           selectedItemColor: iconColor,
           unselectedItemColor: iconColor,
         ),
+
+        // Text Theme
         textTheme: TextTheme(
           titleLarge: GoogleFonts.inter(
             fontSize: 24,
@@ -85,6 +98,8 @@ class LightTheme extends BaseTheme {
             color: textColor,
           ),
         ),
+
+        // Button Theme
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -92,8 +107,14 @@ class LightTheme extends BaseTheme {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
+            textStyle: TextStyle(
+              fontFamily: GoogleFonts.inter().fontFamily,
+              color: secondaryColor,
+            )
           ),
         ),
+
+        // Text Field Theme
         inputDecorationTheme: InputDecorationTheme(
           prefixIconColor: borderColor,
           errorStyle: TextStyle(color: errorColor),
@@ -128,6 +149,8 @@ class LightTheme extends BaseTheme {
             ),
           ),
         ),
+
+        // Search Bar Theme
         searchBarTheme: SearchBarThemeData(
           elevation: WidgetStatePropertyAll(0),
           backgroundColor: WidgetStatePropertyAll(secondaryColor),

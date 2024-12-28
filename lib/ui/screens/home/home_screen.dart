@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Theme.of(context).primaryColor,
       child: Icon(Icons.add,
       size: 30, 
-      color: Colors.white,),
+      color: Theme.of(context).scaffoldBackgroundColor,),
       ),
       //extendBody: true,
       body: tabs[currentIndex],

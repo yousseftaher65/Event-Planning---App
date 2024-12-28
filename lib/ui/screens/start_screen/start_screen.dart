@@ -116,7 +116,7 @@ class StartScreen extends StatelessWidget {
                   ],
                   radiusStyle: true,
                   onToggle: (index) {
-                    themeProvider.changeTheme();
+                    themeProvider.changeTheme( index == 1 ? ThemeMode.dark : ThemeMode.light);
                   },
                 ),
               ],
@@ -136,7 +136,7 @@ class StartScreen extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium!
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: Theme.of(context).scaffoldBackgroundColor),
               ),
             ),
           ],

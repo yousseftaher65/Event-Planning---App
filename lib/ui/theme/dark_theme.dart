@@ -35,7 +35,24 @@ class DarkTheme extends BaseTheme {
         indicatorColor: accentColor,
         primaryColor: primaryColor,
         scaffoldBackgroundColor: backgroundColor,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          elevation: 0,
+          shape: CircleBorder(
+            side: BorderSide(
+              color: secondaryColor,
+              width: 4,
+            ),
+          ),
+          backgroundColor: primaryColor,
+        ),
         appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(color: primaryColor),
+          surfaceTintColor: backgroundColor,
+          titleTextStyle: TextStyle(
+              fontFamily: GoogleFonts.inter().fontFamily,
+              fontWeight: FontWeight.normal,
+              fontSize: 24,
+              color: primaryColor),
           backgroundColor: backgroundColor,
           centerTitle: true,
         ),
@@ -52,7 +69,7 @@ class DarkTheme extends BaseTheme {
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
-          backgroundColor: primaryColor,
+          backgroundColor: backgroundColor,
           showSelectedLabels: true,
           showUnselectedLabels: true,
           selectedItemColor: iconColor,
@@ -77,11 +94,15 @@ class DarkTheme extends BaseTheme {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16 ,  horizontal: 16),
             backgroundColor: primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
+             textStyle: TextStyle(
+                fontFamily: GoogleFonts.inter().fontFamily,
+                color: accentColor,
+              ),
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(

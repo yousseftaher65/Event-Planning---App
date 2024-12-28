@@ -1,11 +1,15 @@
+import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         shape: RoundedRectangleBorder(
@@ -59,7 +63,7 @@ class ProfileTab extends StatelessWidget {
               'Language',
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: 20,
-                    color: Colors.black,
+                    color: Theme.of(context).indicatorColor,
                   ),
             ),
             SizedBox(height: 16),
@@ -69,7 +73,7 @@ class ProfileTab extends StatelessWidget {
                 border: Border.all(
                   color: Theme.of(context).primaryColor,
                 ),
-                color: Colors.white,
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
               padding: const EdgeInsets.all(16),
               child: Row(
@@ -95,7 +99,7 @@ class ProfileTab extends StatelessWidget {
               'Theme',
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: 20,
-                    color: Colors.black,
+                    color: Theme.of(context).indicatorColor,
                   ),
             ),
             SizedBox(height: 16),
@@ -105,7 +109,7 @@ class ProfileTab extends StatelessWidget {
                 border: Border.all(
                   color: Theme.of(context).primaryColor,
                 ),
-                color: Colors.white,
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
               padding: const EdgeInsets.all(16),
               child: Row(
@@ -117,6 +121,21 @@ class ProfileTab extends StatelessWidget {
                           color: Theme.of(context).primaryColor,
                         ),
                   ),
+                  DropdownButton(
+                    items: [
+                    DropdownMenuItem(
+                      value: ThemeMode.light,
+                      child: Text('Light'),
+                    ),
+                    DropdownMenuItem(
+                      value: ThemeMode.dark,
+                      child: Text('Dark'),
+                    )
+                  ], onChanged: (ThemeMode? value){
+                    if(value != null){
+                      provider.changeTheme(value);
+                    }
+                  },),
                   Spacer(),
                   Icon(
                     Icons.arrow_drop_down_rounded,
