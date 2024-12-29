@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,23 +76,48 @@ class ProfileTab extends StatelessWidget {
                 ),
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Text(
-                    'English',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          fontSize: 20,
-                          color: Theme.of(context).primaryColor,
-                        ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: DropdownButton(
+                elevation: 3,
+                underline: const SizedBox(),
+                hint: Text(
+                   context.locale.languageCode == 'en' ? 'English' : 'Arabic',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                ),
+                // disabledHint: Text('Theme'),
+                iconDisabledColor: Theme.of(context).primaryColor,
+                iconEnabledColor: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(16),
+                isExpanded: true,
+                dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                     value: context.locale.languageCode,
+                items: [
+                  DropdownMenuItem(
+                    value: 'en' ,
+                    child: Text('English'),
                   ),
-                  Spacer(),
-                  Icon(
-                    Icons.arrow_drop_down_rounded,
-                    size: 30,
-                    color: Theme.of(context).primaryColor,
-                  ),
+                  DropdownMenuItem(
+                    value: 'ar' ,
+                    child: Text('Arabic'),
+                  )
                 ],
+                onChanged: (value) {
+                  if (value == 'ar') {
+                    context.setLocale(
+                      Locale('ar'),
+                    );
+                  } else {
+                    context.setLocale(
+                      Locale('en'),
+                    );
+                  }
+                },
               ),
             ),
             SizedBox(height: 16),
@@ -111,38 +137,41 @@ class ProfileTab extends StatelessWidget {
                 ),
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Text(
-                    'Light',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          fontSize: 20,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                  ),
-                  DropdownButton(
-                    items: [
-                    DropdownMenuItem(
-                      value: ThemeMode.light,
-                      child: Text('Light'),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: DropdownButton(
+                elevation: 3,
+                underline: const SizedBox(),
+                hint: Text(
+                  provider.themeMode == ThemeMode.light ? 'Light' : 'Dark',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                ),
+                // disabledHint: Text('Theme'),
+                iconDisabledColor: Theme.of(context).primaryColor,
+                iconEnabledColor: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(16),
+                isExpanded: true,
+                dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).primaryColor,
                     ),
-                    DropdownMenuItem(
-                      value: ThemeMode.dark,
-                      child: Text('Dark'),
-                    )
-                  ], onChanged: (ThemeMode? value){
-                    if(value != null){
-                      provider.changeTheme(value);
-                    }
-                  },),
-                  Spacer(),
-                  Icon(
-                    Icons.arrow_drop_down_rounded,
-                    size: 30,
-                    color: Theme.of(context).primaryColor,
+                items: [
+                  DropdownMenuItem(
+                    value: ThemeMode.light,
+                    child: Text('Light'),
                   ),
+                  DropdownMenuItem(
+                    value: ThemeMode.dark,
+                    child: Text('Dark'),
+                  )
                 ],
+                onChanged: (ThemeMode? value) {
+                  if (value != null) {
+                    provider.changeTheme(value);
+                  }
+                },
               ),
             ),
             Spacer(),
