@@ -3,11 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EventCard extends StatelessWidget {
   final String imageName;
-  const EventCard({super.key , required this.imageName});
+  const EventCard({super.key, required this.imageName});
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Container(
         foregroundDecoration: BoxDecoration(
           border: Border.all(color: Theme.of(context).primaryColor, width: 2),
@@ -30,7 +33,7 @@ class EventCard extends StatelessWidget {
                       margin: const EdgeInsets.all(8),
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -63,7 +66,7 @@ class EventCard extends StatelessWidget {
               margin: const EdgeInsets.all(8),
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(

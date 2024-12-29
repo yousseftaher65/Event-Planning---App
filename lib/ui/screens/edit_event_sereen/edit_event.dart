@@ -17,16 +17,8 @@ class EditEvent extends StatelessWidget {
           var provider = Provider.of<CategoryEventProvider>(context);
           return Scaffold(
             appBar: AppBar(
-              iconTheme: IconThemeData(
-                color: Theme.of(context).primaryColor,
-              ),
               title: Text(
-                'Create Event',
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontFamily: GoogleFonts.inter().fontFamily,
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400),
+                'Edit Event',
               ),
             ),
             body: Padding(
@@ -78,7 +70,8 @@ class EditEvent extends StatelessWidget {
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(24),
                           labelText: 'Event Title',
-                          prefixIcon: Icon(FontAwesomeIcons.penToSquare)),
+                          labelStyle: Theme.of(context).textTheme.bodyLarge,
+                          prefixIcon: Icon(FontAwesomeIcons.penToSquare , color: Theme.of(context).textTheme.bodyLarge!.color,)),
                     ),
                     SizedBox(
                       height: 16,
@@ -94,6 +87,7 @@ class EditEvent extends StatelessWidget {
                       maxLines: 6,
                       decoration: InputDecoration(
                         labelText: 'Event Description',
+                        labelStyle: Theme.of(context).textTheme.bodyLarge,
                         contentPadding: EdgeInsets.only(left: 24, top: 24),
                         alignLabelWithHint: true,
                       ),
@@ -168,7 +162,7 @@ class EditEvent extends StatelessWidget {
                               side: BorderSide(
                                   color: Theme.of(context).primaryColor),
                               borderRadius: BorderRadius.circular(16)),
-                          backgroundColor: Colors.white),
+                          backgroundColor: Theme.of(context).scaffoldBackgroundColor),
                       child: Row(
                         children: [
                           Container(
@@ -178,7 +172,7 @@ class EditEvent extends StatelessWidget {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: Icon(Icons.my_location_sharp,
-                                color: Colors.white),
+                                color: Theme.of(context).scaffoldBackgroundColor),
                           ),
                           SizedBox(
                             width: 8,
@@ -210,7 +204,11 @@ class EditEvent extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
-                              .copyWith(color: Colors.white)),
+                              .copyWith(
+                                  color: Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .selectedItemColor)
+                              ),
                     )
                   ],
                 ),

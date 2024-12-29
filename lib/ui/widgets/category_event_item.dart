@@ -22,7 +22,7 @@ class CategoryEventItem extends StatelessWidget {
                     children: [
                       ImageIcon(
                         AssetImage('assets/icons/$imgaeName.png'),
-                        color: isSelected? Colors.white : Theme.of(context).primaryColor,
+                        color: isSelected? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).primaryColor,
                       ),
                       SizedBox(
                         width: 8,
@@ -33,7 +33,7 @@ class CategoryEventItem extends StatelessWidget {
                             Theme.of(context).textTheme.titleMedium!.copyWith(
                                   fontSize: 14,
                                   color: isSelected
-                      ? Colors.white
+                      ? Theme.of(context).scaffoldBackgroundColor
                       : Theme.of(context).primaryColor,
                                 ),
                       ),

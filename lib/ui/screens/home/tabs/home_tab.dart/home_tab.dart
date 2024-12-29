@@ -21,27 +21,22 @@ class HomeTab extends StatelessWidget {
                 bottomRight: Radius.circular(40),
               ),
             ),
-            backgroundColor: Theme.of(context).primaryColor,
             centerTitle: false,
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Welcome Back ✨',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        /* fontFamily: GoogleFonts.inter().fontFamily,
-                      fontWeight: FontWeight.normal, */
-                        fontSize: 14,
-                        color: Color(0xffF2FEFF),
-                      ),
+                 style: TextStyle(
+                  color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+                  fontSize: 14),
                 ),
                 Text(
                   'Balf',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        /* fontFamily: GoogleFonts.inter().fontFamily,
-                      fontWeight: FontWeight.normal, */
+                  style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
                         fontSize: 24,
-                        color: Color(0xffF2FEFF),
                       ),
                 ),
               ],
@@ -54,7 +49,6 @@ class HomeTab extends StatelessWidget {
                 ),
               ),
               toolbarHeight: 90,
-              backgroundColor: Theme.of(context).primaryColor,
               centerTitle: false,
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,15 +58,14 @@ class HomeTab extends StatelessWidget {
                     children: [
                       Image.asset(
                         'assets/icons/mapIcon.png',
+                        color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
                       ),
                       Text(
                         'Cairo, Egypt',
                         style:
                             Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  /* fontFamily: GoogleFonts.inter().fontFamily,
-                          fontWeight: FontWeight.normal, */
+                                  color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
                                   fontSize: 14,
-                                  color: Color(0xffF2FEFF),
                                 ),
                       ),
                     ],
