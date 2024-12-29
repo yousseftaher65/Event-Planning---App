@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
 import 'package:event_planning_pojo/ui/screens/auth/forget_pass_screen.dart';
 import 'package:event_planning_pojo/ui/screens/auth/register_screen.dart';
@@ -26,7 +27,7 @@ class LoginScreen extends StatelessWidget {
               ),
               SizedBox(height: 28),
               InputField(
-                label: 'Email',
+                label: "email".tr(),
                 icon: Icons.email_rounded,
               ),
               SizedBox(height: 16),
@@ -40,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                       Navigator.pushNamed(context, ForgetPassScreen.tag);
                     },
                     child: Text(
-                      'Forgot Password?',
+                      "forgot_password".tr(),
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
@@ -56,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, HomeScreen.tag);
                 },
                 child: Text(
-                  'Login',
+                  "login".tr(),
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
@@ -71,10 +72,10 @@ class LoginScreen extends StatelessWidget {
                 child: Text.rich(
                   textAlign: TextAlign.center,
                   TextSpan(
-                    text: 'Don\'t have an account? ',
+                    text: "dont_have_account".tr(),
                     children: [
                       TextSpan(
-                        text: 'create Account',
+                        text: "create_account".tr(),
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                           decorationColor: Theme.of(context).primaryColor,
@@ -100,7 +101,7 @@ class LoginScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      'OR',
+                      "or".tr(),
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Theme.of(context).primaryColor,
                           ),
@@ -130,7 +131,7 @@ class LoginScreen extends StatelessWidget {
                     Image.asset('assets/logos/googleLogo.png'),
                     SizedBox(width: 8),
                     Text(
-                      'Login with Google',
+                       "login_with_google".tr(),
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
