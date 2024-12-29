@@ -61,7 +61,7 @@ class ProfileTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Language',
+              "language".tr(),
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: 20,
                     color: Theme.of(context).indicatorColor,
@@ -70,7 +70,7 @@ class ProfileTab extends StatelessWidget {
             SizedBox(height: 16),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(24),
                 border: Border.all(
                   color: Theme.of(context).primaryColor,
                 ),
@@ -81,7 +81,7 @@ class ProfileTab extends StatelessWidget {
                 elevation: 3,
                 underline: const SizedBox(),
                 hint: Text(
-                   context.locale.languageCode == 'en' ? 'English' : 'Arabic',
+                   context.locale.languageCode == 'en' ? "english".tr() : "arabic".tr(),
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         fontSize: 20,
                         color: Theme.of(context).primaryColor,
@@ -90,7 +90,7 @@ class ProfileTab extends StatelessWidget {
                 // disabledHint: Text('Theme'),
                 iconDisabledColor: Theme.of(context).primaryColor,
                 iconEnabledColor: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(24),
                 isExpanded: true,
                 dropdownColor: Theme.of(context).scaffoldBackgroundColor,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -100,11 +100,11 @@ class ProfileTab extends StatelessWidget {
                 items: [
                   DropdownMenuItem(
                     value: 'en' ,
-                    child: Text('English'),
+                    child: Text("english".tr()),
                   ),
                   DropdownMenuItem(
                     value: 'ar' ,
-                    child: Text('Arabic'),
+                    child: Text("arabic".tr()),
                   )
                 ],
                 onChanged: (value) {
@@ -122,7 +122,7 @@ class ProfileTab extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Theme',
+              "theme".tr(),
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: 20,
                     color: Theme.of(context).indicatorColor,
@@ -131,7 +131,7 @@ class ProfileTab extends StatelessWidget {
             SizedBox(height: 16),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(24),
                 border: Border.all(
                   color: Theme.of(context).primaryColor,
                 ),
@@ -142,7 +142,7 @@ class ProfileTab extends StatelessWidget {
                 elevation: 3,
                 underline: const SizedBox(),
                 hint: Text(
-                  provider.themeMode == ThemeMode.light ? 'Light' : 'Dark',
+                  provider.themeMode == ThemeMode.light ? "light".tr(): "dark".tr(),
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         fontSize: 20,
                         color: Theme.of(context).primaryColor,
@@ -151,7 +151,7 @@ class ProfileTab extends StatelessWidget {
                 // disabledHint: Text('Theme'),
                 iconDisabledColor: Theme.of(context).primaryColor,
                 iconEnabledColor: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(24),
                 isExpanded: true,
                 dropdownColor: Theme.of(context).scaffoldBackgroundColor,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -160,11 +160,11 @@ class ProfileTab extends StatelessWidget {
                 items: [
                   DropdownMenuItem(
                     value: ThemeMode.light,
-                    child: Text('Light'),
+                    child: Text("light".tr()),
                   ),
                   DropdownMenuItem(
                     value: ThemeMode.dark,
-                    child: Text('Dark'),
+                    child: Text("dark".tr()),
                   )
                 ],
                 onChanged: (ThemeMode? value) {
@@ -182,18 +182,23 @@ class ProfileTab extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.logout_rounded,
-                    color: Colors.white,
-                  ),
                   Text(
-                    'Log Out',
+                    "logout".tr(),
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 20,
-                          color: Colors.white,
+                          color: Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .selectedItemColor,
                           fontFamily: GoogleFonts.inter().fontFamily,
                           fontWeight: FontWeight.normal,
                         ),
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.logout_rounded,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedItemColor,
                   ),
                 ],
               ),

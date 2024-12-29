@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/providers/category_event_provider.dart';
 import 'package:event_planning_pojo/ui/widgets/category_event_item.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class CreateEventTab extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'Create Event',
+                "create_event".tr(),
               ),
             ),
             body: Padding(
@@ -51,7 +52,7 @@ class CreateEventTab extends StatelessWidget {
                           child: CategoryEventItem(
                             isSelected: index == provider.currentCategoryIndex,
                             imgaeName: provider.categoryList[index],
-                            title: provider.categoryList[index].toUpperCase(),
+                            title: provider.categoryList[index].tr().toUpperCase(),
                           ),
                         ),
                       ),
@@ -60,16 +61,18 @@ class CreateEventTab extends StatelessWidget {
                       height: 16,
                     ),
                     Text(
-                      'Title',
+                      "title".tr(),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     SizedBox(
                       height: 8,
                     ),
                     TextField(
+                      cursorColor: Theme.of(context).primaryColor,
+                      style: Theme.of(context).textTheme.bodyLarge,
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(24),
-                          labelText: 'Event Title',
+                          labelText: "event_title".tr(),
                           labelStyle: Theme.of(context).textTheme.bodyLarge,
                           prefixIcon: Icon(FontAwesomeIcons.penToSquare , color: Theme.of(context).textTheme.bodyLarge!.color,)),
                     ),
@@ -77,18 +80,20 @@ class CreateEventTab extends StatelessWidget {
                       height: 16,
                     ),
                     Text(
-                      'Description',
+                      "description".tr(),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     SizedBox(
                       height: 8,
                     ),
                     TextField(
+                      cursorColor: Theme.of(context).primaryColor,
+                      style: Theme.of(context).textTheme.bodyLarge,
                       maxLines: 6,
                       decoration: InputDecoration(
-                        labelText: 'Event Description',
+                        labelText: "event_description".tr(),
                         labelStyle: Theme.of(context).textTheme.bodyLarge,
-                        contentPadding: EdgeInsets.only(left: 24, top: 24),
+                        contentPadding: EdgeInsets.all( 24),
                         alignLabelWithHint: true,
                       ),
                     ),
@@ -105,12 +110,12 @@ class CreateEventTab extends StatelessWidget {
                           width: 8,
                         ),
                         Text(
-                          'Date',
+                          "date".tr(),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Spacer(),
                         Text(
-                          'Choose Date',
+                          "choose_date".tr(),
                           style:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     color: Theme.of(context).primaryColor,
@@ -131,12 +136,12 @@ class CreateEventTab extends StatelessWidget {
                           width: 8,
                         ),
                         Text(
-                          'Time',
+                          "time".tr(),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Spacer(),
                         Text(
-                          'Choose Time',
+                          "choose_time".tr(),
                           style:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     color: Theme.of(context).primaryColor,
@@ -148,7 +153,7 @@ class CreateEventTab extends StatelessWidget {
                       height: 16,
                     ),
                     Text(
-                      'Location',
+                      "location".tr(),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     SizedBox(
@@ -178,7 +183,7 @@ class CreateEventTab extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            'Choose Event Location',
+                            "choose_event_location".tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
@@ -200,7 +205,7 @@ class CreateEventTab extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {},
-                      child: Text('Create Event',
+                      child: Text("create_event".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!.copyWith(color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor)
