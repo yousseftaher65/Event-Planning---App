@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/screens/edit_event_sereen/edit_event.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +12,7 @@ class EventDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Event Details',
+          "event_details".tr(),
         ),
         actions: [
           IconButton(
@@ -133,7 +134,7 @@ class EventDetailsScreen extends StatelessWidget {
                       width: 8,
                     ),
                     Text(
-                      'Cairo, Egypt',
+                      "cairo".tr(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!
@@ -170,7 +171,7 @@ class EventDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
-              Text('Description' , style: Theme.of(context).textTheme.bodyLarge,),
+              Text("description".tr() , style: Theme.of(context).textTheme.bodyLarge,),
               SizedBox(
                 height: 16,
               ),

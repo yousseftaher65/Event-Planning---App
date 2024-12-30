@@ -94,15 +94,15 @@ class DarkTheme extends BaseTheme {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16 ,  horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             backgroundColor: primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
-             textStyle: TextStyle(
-                fontFamily: GoogleFonts.inter().fontFamily,
-                color: accentColor,
-              ),
+            textStyle: TextStyle(
+              fontFamily: GoogleFonts.inter().fontFamily,
+              color: accentColor,
+            ),
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
@@ -154,6 +154,62 @@ class DarkTheme extends BaseTheme {
           ),
           hintStyle: WidgetStatePropertyAll(
             TextStyle(color: primaryColor),
+          ),
+        ),
+        dropdownMenuTheme: DropdownMenuThemeData(
+          inputDecorationTheme: InputDecorationTheme(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            //labelStyle: TextStyle(color: primaryColor),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(24),
+              borderSide: BorderSide(
+                color: primaryColor,
+                width: 2,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(24),
+              borderSide: BorderSide(
+                color: primaryColor,
+                width: 2,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(24),
+              borderSide: BorderSide(
+                color: primaryColor,
+                width: 2,
+              ),
+            ),
+          ),
+          menuStyle: MenuStyle(
+            elevation: WidgetStatePropertyAll(2),
+            padding: WidgetStatePropertyAll(
+              EdgeInsets.only(
+                left: 16,
+                right: 16,
+              ),
+            ),
+            surfaceTintColor: WidgetStatePropertyAll(backgroundColor),
+            backgroundColor: WidgetStatePropertyAll(backgroundColor),
+          ),
+          textStyle: TextStyle(
+              fontSize: 20,
+              fontFamily: GoogleFonts.inter().fontFamily,
+              fontWeight: FontWeight.bold,
+           color: primaryColor),
+        ),
+        menuButtonTheme: MenuButtonThemeData(
+          style: ButtonStyle(
+            textStyle: WidgetStatePropertyAll(
+              TextStyle(
+                fontFamily: GoogleFonts.inter().fontFamily,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
+            foregroundColor: WidgetStatePropertyAll(primaryColor),
           ),
         ),
       );

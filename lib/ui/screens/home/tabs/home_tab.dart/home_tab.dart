@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/providers/category_event_provider.dart';
 import 'package:event_planning_pojo/ui/screens/event_details_screen/event_details_screen.dart';
 import 'package:event_planning_pojo/ui/widgets/event_card.dart';
@@ -26,7 +27,7 @@ class HomeTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Welcome Back ✨',
+                  "welcome_back".tr(),
                  style: TextStyle(
                   color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
                   fontSize: 14),
@@ -99,7 +100,7 @@ class HomeTab extends StatelessWidget {
                               width: 8,
                             ),
                             Text(
-                              'Sport',
+                              "sport".tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!

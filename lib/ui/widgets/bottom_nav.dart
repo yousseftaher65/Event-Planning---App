@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BottomNav extends StatefulWidget {
@@ -23,19 +24,19 @@ class _BottomNavState extends State<BottomNav> {
         items: [
         BottomNavigationBarItem(
           icon: _buildNavItem('home', 0, context),
-          label: 'Home',
+          label: "home".tr(),
         ),
         BottomNavigationBarItem(
           icon: _buildNavItem('map', 1, context),
-          label: 'Map',
+          label: "map".tr(),
         ),
         BottomNavigationBarItem(
           icon: _buildNavItem('fav', 2, context),
-          label: 'Favourite',
+          label: "favourite".tr(),
         ),
         BottomNavigationBarItem(
           icon: _buildNavItem('profile', 3, context),
-          label: 'Profile',
+          label: "profile".tr(),
         ),
       ]);
   }

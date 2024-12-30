@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/widgets/input_field.dart';
 import 'package:event_planning_pojo/ui/widgets/password_field.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RegisterScreen extends StatelessWidget {
   static const String tag = 'registerScreen';
@@ -11,10 +11,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register' , style: Theme.of(context).textTheme.titleMedium!.copyWith(
-          fontFamily: GoogleFonts.inter().fontFamily,
-          fontWeight: FontWeight.w400),),
-        iconTheme: IconThemeData(color: Colors.black),
+        title: Text("register".tr()),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -31,32 +28,51 @@ class RegisterScreen extends StatelessWidget {
             ),
             SizedBox(height: 24),
             InputField(
-              label: 'Name',
+              label: "name".tr(),
               icon: Icons.person,
             ),
             SizedBox(height: 24),
             InputField(
-              label: 'Email',
+              label: "email".tr(),
               icon: Icons.person,
             ),
             SizedBox(height: 24),
             PasswordField(),
             SizedBox(height: 24),
-            PasswordField( label: "Re Password",),
+            PasswordField(
+              label: "re_Password",
+            ),
             SizedBox(height: 24),
-            ElevatedButton(onPressed: (){}, child: Text('Create Account' ,style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),),),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                "create_account".tr(),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: Colors.white),
+              ),
+            ),
             SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Already have an account?', style: Theme.of(context).textTheme.bodyLarge,),
-                TextButton(onPressed: (){
-                  Navigator.pop(context);
-                }, child: Text('Login', style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).primaryColor,
-                  decoration: TextDecoration.underline,
-                  decorationColor: Theme.of(context).primaryColor
-                ),))
+                Text(
+                  "already_have_account".tr(),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "login".tr(),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Theme.of(context).primaryColor),
+                  ),
+                )
               ],
             )
           ],

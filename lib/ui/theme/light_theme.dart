@@ -51,10 +51,10 @@ class LightTheme extends BaseTheme {
           iconTheme: IconThemeData(color: secondaryColor),
           surfaceTintColor: primaryColor,
           titleTextStyle: TextStyle(
-            fontFamily: GoogleFonts.inter().fontFamily,
-            fontWeight: FontWeight.normal,
-            fontSize: 24,
-            color: secondaryColor),
+              fontFamily: GoogleFonts.inter().fontFamily,
+              fontWeight: FontWeight.normal,
+              fontSize: 24,
+              color: secondaryColor),
           backgroundColor: primaryColor,
           centerTitle: true,
         ),
@@ -102,16 +102,15 @@ class LightTheme extends BaseTheme {
         // Button Theme
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-            backgroundColor: primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            textStyle: TextStyle(
-              fontFamily: GoogleFonts.inter().fontFamily,
-              color: secondaryColor,
-            )
-          ),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              backgroundColor: primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              textStyle: TextStyle(
+                fontFamily: GoogleFonts.inter().fontFamily,
+                color: secondaryColor,
+              )),
         ),
 
         // Text Field Theme
@@ -125,7 +124,8 @@ class LightTheme extends BaseTheme {
               width: 2,
             ),
           ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           labelStyle: TextStyle(color: borderColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
@@ -165,6 +165,62 @@ class LightTheme extends BaseTheme {
           ),
           hintStyle: WidgetStatePropertyAll(
             TextStyle(color: primaryColor),
+          ),
+        ),
+        dropdownMenuTheme: DropdownMenuThemeData(
+          inputDecorationTheme: InputDecorationTheme(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            //labelStyle: TextStyle(color: primaryColor),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(24),
+              borderSide: BorderSide(
+                color: primaryColor,
+                width: 2,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(24),
+              borderSide: BorderSide(
+                color: primaryColor,
+                width: 2,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(24),
+              borderSide: BorderSide(
+                color: primaryColor,
+                width: 2,
+              ),
+            ),
+          ),
+          menuStyle: MenuStyle(
+            elevation: WidgetStatePropertyAll(2),
+            padding: WidgetStatePropertyAll(
+              EdgeInsets.only(
+                left: 16,
+                right: 16,
+              ),
+            ),
+            surfaceTintColor: WidgetStatePropertyAll(backgroundColor),
+            backgroundColor: WidgetStatePropertyAll(backgroundColor),
+          ),
+          textStyle: TextStyle(
+              fontSize: 20,
+              fontFamily: GoogleFonts.inter().fontFamily,
+              fontWeight: FontWeight.bold,
+              color: primaryColor),
+        ),
+        menuButtonTheme: MenuButtonThemeData(
+          style: ButtonStyle(
+            textStyle: WidgetStatePropertyAll(
+              TextStyle(
+                fontFamily: GoogleFonts.inter().fontFamily,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
+            foregroundColor: WidgetStatePropertyAll(primaryColor),
           ),
         ),
       );
