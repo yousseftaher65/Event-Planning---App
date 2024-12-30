@@ -68,57 +68,44 @@ class ProfileTab extends StatelessWidget {
                   ),
             ),
             SizedBox(height: 16),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(
-                  color: Theme.of(context).primaryColor,
-                ),
-                color: Theme.of(context).scaffoldBackgroundColor,
+            DropdownMenu(
+             controller: TextEditingController(
+                  text: context.locale.languageCode == 'en'
+                      ? "english".tr()
+                      : "arabic".tr()),
+              width: double.infinity,
+              trailingIcon: Icon(
+                Icons.arrow_drop_down_rounded,
+                color: Theme.of(context).primaryColor,
+                size: 50,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: DropdownButton(
-                elevation: 3,
-                underline: const SizedBox(),
-                hint: Text(
-                   context.locale.languageCode == 'en' ? "english".tr() : "arabic".tr(),
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontSize: 20,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                ),
-                // disabledHint: Text('Theme'),
-                iconDisabledColor: Theme.of(context).primaryColor,
-                iconEnabledColor: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(24),
-                isExpanded: true,
-                dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                     value: context.locale.languageCode,
-                items: [
-                  DropdownMenuItem(
-                    value: 'en' ,
-                    child: Text("english".tr()),
-                  ),
-                  DropdownMenuItem(
-                    value: 'ar' ,
-                    child: Text("arabic".tr()),
-                  )
-                ],
-                onChanged: (value) {
-                  if (value == 'ar') {
-                    context.setLocale(
-                      Locale('ar'),
-                    );
-                  } else {
-                    context.setLocale(
-                      Locale('en'),
-                    );
-                  }
-                },
+              selectedTrailingIcon: Icon(
+                Icons.arrow_drop_down_rounded,
+                color: Theme.of(context).primaryColor,
+                size: 50,
               ),
+              enableSearch: false,
+              onSelected: (value) {
+                if (value == 'ar') {
+                  context.setLocale(
+                    Locale('ar'),
+                  );
+                } else {
+                  context.setLocale(
+                    Locale('en'),
+                  );
+                }
+              },
+              dropdownMenuEntries: [
+                DropdownMenuEntry(
+                  label: "english".tr(),
+                  value:'en',
+                ),
+                DropdownMenuEntry(
+                  label: "arabic".tr(),
+                  value: 'ar',
+                ),
+              ],
             ),
             SizedBox(height: 16),
             Text(
@@ -129,50 +116,28 @@ class ProfileTab extends StatelessWidget {
                   ),
             ),
             SizedBox(height: 16),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(
-                  color: Theme.of(context).primaryColor,
-                ),
-                color: Theme.of(context).scaffoldBackgroundColor,
+            DropdownMenu(
+              controller: TextEditingController(text: provider.themeMode == ThemeMode.light ? "light".tr() : "dark".tr()),
+              width: double.infinity,
+              trailingIcon: Icon(Icons.arrow_drop_down_rounded , color: Theme.of(context).primaryColor, size: 50,),
+              selectedTrailingIcon: Icon(Icons.arrow_drop_down_rounded , color: Theme.of(context).primaryColor, size: 50,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: DropdownButton(
-                elevation: 3,
-                underline: const SizedBox(),
-                hint: Text(
-                  provider.themeMode == ThemeMode.light ? "light".tr(): "dark".tr(),
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontSize: 20,
-                        color: Theme.of(context).primaryColor,
-                      ),
+              enableSearch: false,
+              onSelected: (ThemeMode? value) {
+                if (value != null) {
+                  provider.changeTheme(value);
+                }
+              },
+              dropdownMenuEntries: [
+                DropdownMenuEntry(
+                  label: "light".tr(),
+                  value: ThemeMode.light,
                 ),
-                // disabledHint: Text('Theme'),
-                iconDisabledColor: Theme.of(context).primaryColor,
-                iconEnabledColor: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(24),
-                isExpanded: true,
-                dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                items: [
-                  DropdownMenuItem(
-                    value: ThemeMode.light,
-                    child: Text("light".tr()),
-                  ),
-                  DropdownMenuItem(
-                    value: ThemeMode.dark,
-                    child: Text("dark".tr()),
-                  )
-                ],
-                onChanged: (ThemeMode? value) {
-                  if (value != null) {
-                    provider.changeTheme(value);
-                  }
-                },
-              ),
+                DropdownMenuEntry(
+                  label: "dark".tr(),
+                  value: ThemeMode.dark,
+                ),
+              ],
             ),
             Spacer(),
             ElevatedButton(
@@ -187,8 +152,8 @@ class ProfileTab extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 20,
                           color: Theme.of(context)
-                                      .bottomNavigationBarTheme
-                                      .selectedItemColor,
+                              .bottomNavigationBarTheme
+                              .selectedItemColor,
                           fontFamily: GoogleFonts.inter().fontFamily,
                           fontWeight: FontWeight.normal,
                         ),
