@@ -51,7 +51,7 @@ class EditEvent extends StatelessWidget {
                           },
                           child: CategoryEventItem(
                             isSelected: index == provider.currentCategoryIndex,
-                            imgaeName: provider.categoryList[index],
+                            imageName: provider.categoryList[index],
                             title: provider.categoryList[index].tr().toUpperCase(),
                           ),
                         ),

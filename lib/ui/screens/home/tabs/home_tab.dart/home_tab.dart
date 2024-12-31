@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/providers/category_event_provider.dart';
-import 'package:event_planning_pojo/ui/screens/event_details_screen/event_details_screen.dart';
+import 'package:event_planning_pojo/ui/screens/event_details/event_details_screen.dart';
 import 'package:event_planning_pojo/ui/widgets/event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +13,7 @@ class HomeTab extends StatelessWidget {
     
     return ChangeNotifierProvider(create: (BuildContext context) => CategoryEventProvider(),
     builder: (context, child) {
-      var provaider = Provider.of<CategoryEventProvider>(context);
+      var provider = Provider.of<CategoryEventProvider>(context);
       return Scaffold(
           appBar: AppBar(
             shape: RoundedRectangleBorder(
@@ -127,14 +127,14 @@ class HomeTab extends StatelessWidget {
                 Expanded(
                   child: ListView.separated(
                     separatorBuilder: (context, index) => SizedBox(height: 16),
-                    itemCount: provaider.categoryList.length,
+                    itemCount: provider.categoryList.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
                           Navigator.pushNamed(context, EventDetailsScreen.tag);
                         },
                         child: EventCard(
-                          imageName: provaider.categoryList[index],
+                          imageName: provider.categoryList[index],
                         ),
                       );
                     },

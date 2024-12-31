@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/cache/introduction_cache.dart';
 import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
-import 'package:event_planning_pojo/ui/screens/intro_screens/intor_screen.dart';
+import 'package:event_planning_pojo/ui/screens/intro_screens/intro_screen.dart';
 import 'package:event_planning_pojo/ui/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,7 +36,7 @@ class StartScreen extends StatelessWidget {
             ),
             SizedBox(height: 28),
             Text(
-              "intorduction_title".tr(),
+              "introduction_title".tr(),
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!
@@ -44,7 +44,7 @@ class StartScreen extends StatelessWidget {
             ),
             SizedBox(height: 28),
             Text(
-              "intorduction_body".tr(),
+              "introduction_body".tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             SizedBox(height: 28),

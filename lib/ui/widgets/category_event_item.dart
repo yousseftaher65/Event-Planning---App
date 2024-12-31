@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class CategoryEventItem extends StatelessWidget {
   final bool isSelected;
   final String title;
-  final String imgaeName;
-  const CategoryEventItem({super.key, required this.imgaeName , required this.title , this.isSelected = false});
+  final String imageName;
+  const CategoryEventItem({super.key, required this.imageName , required this.title , this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CategoryEventItem extends StatelessWidget {
                   child: Row(
                     children: [
                       ImageIcon(
-                        AssetImage('assets/icons/$imgaeName.png'),
+                        AssetImage('assets/icons/$imageName.png'),
                         color: isSelected? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).primaryColor,
                       ),
                       SizedBox(

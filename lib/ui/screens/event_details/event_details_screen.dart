@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:event_planning_pojo/ui/screens/edit_event_sereen/edit_event.dart';
+import 'package:event_planning_pojo/ui/screens/edit_event/edit_event.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
