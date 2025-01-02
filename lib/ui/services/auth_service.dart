@@ -50,7 +50,7 @@ class AuthService {
       }
       snack(errorMessage, context);
     } catch (e) {
-      print('Error : $e');
+      snack('Error : $e', context);
     }
   }
 
@@ -95,7 +95,7 @@ class AuthService {
       }
       snack(errorMessage, context);
     } catch (e) {
-      print('Error : $e');
+      snack("$e", context);
     }
   }
 
@@ -119,9 +119,10 @@ class AuthService {
       );
 
       // Once signed in, return the UserCredential
-     UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
       final User? user = userCredential.user;
-      
+
       if (user != null) {
         String name = user.displayName ?? '';
         String email = user.email ?? '';
@@ -129,21 +130,16 @@ class AuthService {
           context,
           HomeScreen.tag,
           (route) => false,
-           arguments: {
+          arguments: {
             'name': name,
             'email': email,
             'initialTabIndex': 0, // Home tab index
           },
         );
-        print("Name: $name, Email: $email");
       }
-
-      // await Future.delayed(Duration(seconds: 1));
-      
     } on FirebaseAuthException catch (e) {
       snack("${e.message}", context);
     } catch (e) {
-      print('Error : $e');
       snack("Something went wrong. Please try again.", context);
     }
   }
