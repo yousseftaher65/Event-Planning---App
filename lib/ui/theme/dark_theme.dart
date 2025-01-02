@@ -115,6 +115,13 @@ class DarkTheme extends BaseTheme {
               width: 2,
             ),
           ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: errorColor,
+              width: 2,
+            ),
+          ),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           labelStyle: TextStyle(color: borderColor),

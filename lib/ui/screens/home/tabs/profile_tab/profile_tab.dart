@@ -1,11 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
+import 'package:event_planning_pojo/ui/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
-  const ProfileTab({super.key});
+  static const String tag = 'profile_tab';
+  final String? userName;
+  final String? userEmail;
+  const ProfileTab({super.key , required this.userName, required this.userEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +40,21 @@ class ProfileTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'El-Balf',
+                  userName ?? 'User',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
-                      .copyWith(fontSize: 24, color: Colors.white),
+                      .copyWith(fontSize: 24, color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor),
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Elbalf@gmail.com',
+                  userEmail ?? 'User',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontFamily: GoogleFonts.inter().fontFamily,
                       fontWeight: FontWeight.normal,
-                      color: Colors.white),
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor),
                 ),
               ],
             ),
@@ -141,7 +147,9 @@ class ProfileTab extends StatelessWidget {
             ),
             Spacer(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                AuthService().signOut(context);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xffFF5659),
               ),

@@ -6,15 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({super.key});
+  static const String tag = 'home_tab';
+  final String? userName;
+  const HomeTab({super.key , required this.userName});
 
   @override
   Widget build(BuildContext context) {
-    
-    return ChangeNotifierProvider(create: (BuildContext context) => CategoryEventProvider(),
-    builder: (context, child) {
-      var provider = Provider.of<CategoryEventProvider>(context);
-      return Scaffold(
+   // final userName = ModalRoute.of(context)?.settings.arguments as String?;
+   // final String? userName = arguments?['name'];
+
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => CategoryEventProvider(),
+      builder: (context, child) {
+        var provider = Provider.of<CategoryEventProvider>(context);
+        return Scaffold(
           appBar: AppBar(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -28,17 +33,21 @@ class HomeTab extends StatelessWidget {
               children: [
                 Text(
                   "welcome_back".tr(),
-                 style: TextStyle(
-                  color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-                  fontSize: 14),
+                  style: TextStyle(
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor,
+                      fontSize: 14),
                 ),
                 Text(
-                  'Balf',
+                  userName?? 'User',
                   style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-                        fontSize: 24,
-                      ),
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedItemColor,
+                    fontSize: 24,
+                  ),
                 ),
               ],
             ),
@@ -59,13 +68,17 @@ class HomeTab extends StatelessWidget {
                     children: [
                       Image.asset(
                         'assets/icons/mapIcon.png',
-                        color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+                        color: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedItemColor,
                       ),
                       Text(
                         'Cairo, Egypt',
                         style:
                             Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+                                  color: Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .selectedItemColor,
                                   fontSize: 14,
                                 ),
                       ),
@@ -144,8 +157,7 @@ class HomeTab extends StatelessWidget {
             ),
           ),
         );
-    },
+      },
     );
-     
   }
 }
