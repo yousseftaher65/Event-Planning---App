@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/cache/introduction_cache.dart';
 import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
@@ -24,12 +25,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseFirestore.instance.disableNetwork();
   await EasyLocalization.ensureInitialized();
   await IntroductionCache.init();
 
   bool? start = IntroductionCache.getStart();
   bool? eligibility = IntroductionCache.getEligibility();
-  
 
   String initialRoute;
   if (start == true) {
@@ -40,17 +41,14 @@ void main() async {
 
   runApp(
     ChangeNotifierProvider(
-
-      create: (BuildContext context) { 
+      create: (BuildContext context) {
         return ThemeProvider();
       },
       child: EasyLocalization(
         supportedLocales: [Locale('en'), Locale('ar')],
         fallbackLocale: Locale('en'),
         path: 'assets/translations',
-        child: MainApp(
-          initialRoute: initialRoute
-        ),
+        child: MainApp(initialRoute: initialRoute),
       ),
     ),
   );
@@ -74,17 +72,18 @@ class MainApp extends StatelessWidget {
       theme: lightTheme.themeData,
       darkTheme: darkTheme.themeData,
       themeMode: themeProvider.themeMode,
-      initialRoute:  initialRoute,// IntroductionCache.getStart() == true ? IntroScreen.tag : StartScreen.tag,
+      initialRoute:
+          initialRoute,
       routes: {
         StartScreen.tag: (context) => const StartScreen(),
-        IntroScreen.tag: (context) =>  IntroScreen(),
-        LoginScreen.tag: (context) =>  LoginScreen(),
-        RegisterScreen.tag: (context) =>  RegisterScreen(),
-        ForgetPassScreen.tag: (context) =>  ForgetPassScreen(),
-        HomeScreen.tag: (context) =>  HomeScreen(),
-        CreateEventTab.tag: (context) =>  CreateEventTab(),
-        EventDetailsScreen.tag: (context) =>  EventDetailsScreen(),
-        EditEvent.tag: (context) =>  EditEvent(),
+        IntroScreen.tag: (context) => IntroScreen(),
+        LoginScreen.tag: (context) => LoginScreen(),
+        RegisterScreen.tag: (context) => RegisterScreen(),
+        ForgetPassScreen.tag: (context) => ForgetPassScreen(),
+        HomeScreen.tag: (context) => HomeScreen(),
+        CreateEventTab.tag: (context) => CreateEventTab(),
+        EventDetailsScreen.tag: (context) => EventDetailsScreen(),
+        EditEvent.tag: (context) => EditEvent(),
       },
     );
   }

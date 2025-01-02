@@ -8,46 +8,57 @@ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   static const tag = 'HomeScreen';
-  const HomeScreen({super.key ,});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 int currentIndex = 0;
+String? _userName;
+String? _userEmail;
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-
   Widget build(BuildContext context) {
-    
+    final arguments =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    if (arguments != null) {
+      _userName = arguments['name'];
+      _userEmail = arguments['email'];
+    }
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.pushNamed(context, CreateEventTab.tag);
-      },
-      backgroundColor: Theme.of(context).primaryColor,
-      child: Icon(Icons.add,
-      size: 30, 
-      color: Theme.of(context).scaffoldBackgroundColor,),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, CreateEventTab.tag);
+        },
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(
+          Icons.add,
+          size: 30,
+          color: Theme.of(context).scaffoldBackgroundColor,
+        ),
       ),
       //extendBody: true,
       body: tabs[currentIndex],
       bottomNavigationBar: BottomNav(
-        callBack: (index){
-        setState(() {
-          currentIndex = index;
-        });
-      },
+        callBack: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
       ),
     );
   }
-final List <Widget> tabs = 
-[
-  HomeTab(),
-  MapTab(),
-  FavTab(),
-  ProfileTab(),
-];
+
+  final List<Widget> tabs = [
+    HomeTab(userName: _userName),
+    MapTab(),
+    FavTab(),
+    ProfileTab(userName: _userName, userEmail: _userEmail),
+  ];
 }
