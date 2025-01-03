@@ -17,6 +17,7 @@ import 'package:event_planning_pojo/ui/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 
@@ -28,7 +29,9 @@ void main() async {
   await FirebaseFirestore.instance.disableNetwork();
   await EasyLocalization.ensureInitialized();
   await IntroductionCache.init();
-
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool initialIsDarkMode =
+      prefs.getBool('isDarkMode') ?? ThemeMode.light == ThemeMode.light;
   bool? start = IntroductionCache.getStart();
   bool? eligibility = IntroductionCache.getEligibility();
 
@@ -42,21 +45,22 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (BuildContext context) {
-        return ThemeProvider();
+        return ThemeProvider(initialIsDarkMode);
       },
       child: EasyLocalization(
         supportedLocales: [Locale('en'), Locale('ar')],
         fallbackLocale: Locale('en'),
         path: 'assets/translations',
-        child: MainApp(initialRoute: initialRoute),
+        child: MainApp(initialRoute: initialRoute , initialIsDarkMode: initialIsDarkMode),
       ),
     ),
   );
 }
 
 class MainApp extends StatelessWidget {
+  final bool initialIsDarkMode;
   final String initialRoute;
-  const MainApp({super.key, required this.initialRoute});
+  const MainApp({super.key, required this.initialRoute , required this.initialIsDarkMode});
 
   @override
   Widget build(BuildContext context) {
