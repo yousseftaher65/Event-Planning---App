@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/screens/auth/login_screen.dart';
 import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +25,7 @@ class AuthService {
         context,
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Account created successfully'),
+            content: Text("account_created".tr()),
             duration: Duration(seconds: 3),
           ),
         ),
@@ -40,17 +41,17 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       String errorMessage = '';
       if (e.code == 'email-already-in-use') {
-        errorMessage = ('Something Went Wrong Please try again.');
+        errorMessage = ("something_went_wrong");
       } else if (e.code == 'invalid-email') {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = "something_went_wrong";
       } else if (e.code == 'network-request-failed') {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = "something_went_wrong";
       } else {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = "something_went_wrong";
       }
       snack(errorMessage, context);
     } catch (e) {
-      snack('Error : $e', context);
+      snack("${"error".tr()} : $e", context);
     }
   }
 
@@ -64,7 +65,7 @@ class AuthService {
           .signInWithEmailAndPassword(email: email, password: password);
 
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection("users")
+          .collection("something_went_wrong")
           .doc(userCredential.user!.uid)
           .get();
 
@@ -81,21 +82,21 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       String errorMessage = '';
       if (e.code == 'wrong-password') {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = "something_went_wrong";
       } else if (e.code == 'user-not-found') {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = "something_went_wrong";
       } else if (e.code == 'email-already-in-use') {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = "something_went_wrong";
       } else if (e.code == 'invalid-email') {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = "something_went_wrong";
       } else if (e.code == 'network-request-failed') {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = "something_went_wrong";
       } else {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = "something_went_wrong";
       }
       snack(errorMessage, context);
     } catch (e) {
-      snack("$e", context);
+      snack("${"error".tr()} : $e", context);
     }
   }
 
@@ -132,15 +133,14 @@ class AuthService {
           (route) => false,
           arguments: {
             'name': name,
-            'email': email,
-            'initialTabIndex': 0, // Home tab index
+            'email': email, 
           },
         );
       }
     } on FirebaseAuthException catch (e) {
-      snack("${e.message}", context);
+      snack("${"error".tr()} : $e", context);
     } catch (e) {
-      snack("Something went wrong. Please try again.", context);
+      snack("something_went_wrong", context);
     }
   }
 
@@ -159,7 +159,7 @@ class AuthService {
   void snack(String message, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Text(message.tr()),
         duration: Duration(seconds: 3),
       ),
     );

@@ -19,7 +19,10 @@ class RegisterScreen extends StatelessWidget {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            title: Text("register".tr()),
+            iconTheme:
+            IconThemeData(color: Theme.of(context).secondaryHeaderColor),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            title: Text("register".tr() , style: Theme.of(context).textTheme.titleSmall,),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),

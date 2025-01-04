@@ -13,7 +13,7 @@ class LightTheme extends BaseTheme {
   Color get accentColor => Color(0xFF1C1C1C);
 
   @override
-  Color get backgroundColor => Colors.white;
+  Color get backgroundColor => secondaryColor;
 
   @override
   Color get textColor => accentColor;
@@ -32,10 +32,12 @@ class LightTheme extends BaseTheme {
 
   @override
   ThemeData get themeData => ThemeData(
+        secondaryHeaderColor: accentColor,
         indicatorColor: accentColor,
         primaryColor: primaryColor,
         scaffoldBackgroundColor: backgroundColor,
         floatingActionButtonTheme: FloatingActionButtonThemeData(
+
           elevation: 0,
           shape: CircleBorder(
             side: BorderSide(
@@ -58,10 +60,11 @@ class LightTheme extends BaseTheme {
           backgroundColor: primaryColor,
           centerTitle: true,
         ),
-
+        
         // Bottom Nav Theme
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          elevation: 0,
+          
+         elevation: 0,
           type: BottomNavigationBarType.fixed,
           selectedLabelStyle: TextStyle(
             fontFamily: GoogleFonts.inter().fontFamily,
@@ -89,6 +92,11 @@ class LightTheme extends BaseTheme {
           ),
           titleMedium: GoogleFonts.inter(
             fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: textColor,
+          ),
+          titleSmall: GoogleFonts.inter(
+            fontSize: 18,
             fontWeight: FontWeight.w700,
             color: textColor,
           ),

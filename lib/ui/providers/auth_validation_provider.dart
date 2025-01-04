@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -13,41 +14,41 @@ class AuthValidationProvider extends ChangeNotifier {
   final signInKey = GlobalKey<FormState>();
 
   String? validateEmailText(email) {
-    if (!isEmailValid.hasMatch(email)) {
-      return 'Please enter a valid email address.';
-    }
     if (email == null || email.isEmpty) {
-      return 'Please enter your email address.';
+      return "please_enter_email".tr();
+    }
+    if (!isEmailValid.hasMatch(email)) {
+      return "please_enter_valid_email".tr();
     }
     return null;
   }
 
   String? validateNameText(name) {
     if (name == null || name.isEmpty) {
-      return 'Please enter your name.';
+      return "please_enter_name".tr();
     }
     return null;
   }
 
   String? validateRePasswordText(rePassword) {
     if (rePassword == null || rePassword.isEmpty) {
-      return 'Must re-enter your password.';
+      return "must_reenter_password".tr();
     }
     if (rePassword != passwordController.text) {
-      return 'Passwords do not match.';
+      return "passwords_do_not_match".tr();
     }
     return null;
   }
 
   String? validatePasswordText(password) {
     if (password == null || password.isEmpty) {
-      return 'Please enter your password.';
+      return "please_enter_password".tr();
     }
     if (!isPasswordValid.hasMatch(password)) {
-      return 'Password must contain at least\n• one uppercase letter\n• one lowercase letter\n• one number\n• one special character.';
+      return "• ${"password_must_contain".tr()}\n• ${"one_uppercase_letter".tr()}\n• ${"one_lowercase_letter".tr()}\n• ${"one_number".tr()}\n• ${"one_special_character".tr()}";
     }
     if (password.length < 8) {
-      return '• Password must be at least 8 characters long';
+      return '• ${"password_must_be_8_characters".tr()}';
     }
     return null;
   }

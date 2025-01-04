@@ -32,6 +32,7 @@ class DarkTheme extends BaseTheme {
 
   @override
   ThemeData get themeData => ThemeData(
+        secondaryHeaderColor: primaryColor,
         indicatorColor: accentColor,
         primaryColor: primaryColor,
         scaffoldBackgroundColor: backgroundColor,
@@ -40,7 +41,7 @@ class DarkTheme extends BaseTheme {
           shape: CircleBorder(
             side: BorderSide(
               color: secondaryColor,
-              width: 4,
+              //width: 4,
             ),
           ),
           backgroundColor: primaryColor,
@@ -55,6 +56,14 @@ class DarkTheme extends BaseTheme {
               color: primaryColor),
           backgroundColor: backgroundColor,
           centerTitle: true,
+        ),
+        bottomAppBarTheme: BottomAppBarTheme(
+          height: 60,
+          color: secondaryColor,
+          elevation: 0,
+          padding: EdgeInsets.zero,
+          shape: CircularNotchedRectangle(),
+          surfaceTintColor: Colors.transparent,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           elevation: 0,
@@ -85,6 +94,11 @@ class DarkTheme extends BaseTheme {
             fontSize: 20,
             fontWeight: FontWeight.w700,
             color: textColor,
+          ),
+          titleSmall: GoogleFonts.inter(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: primaryColor,
           ),
           bodyLarge: GoogleFonts.inter(
             fontSize: 16,

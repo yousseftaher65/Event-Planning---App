@@ -32,7 +32,7 @@ class PasswordField extends StatelessWidget {
                 provider.toggleShowPassword();
               },
               icon: Icon(
-                  provider.isScure ? Icons.visibility_off : Icons.visibility,
+                  provider.isScure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                   color:
                       Theme.of(context).inputDecorationTheme.prefixIconColor),
             ),

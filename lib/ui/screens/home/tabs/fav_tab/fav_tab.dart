@@ -15,8 +15,9 @@ class FavTab extends StatelessWidget {
           var provider = Provider.of<CategoryEventProvider>(context);
         return  Scaffold(
             body: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: SafeArea(
+                bottom: false,
                 child: Column(
                   children: [
                     SearchBar(

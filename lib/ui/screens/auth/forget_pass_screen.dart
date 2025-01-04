@@ -16,8 +16,10 @@ class ForgetPassScreen extends StatelessWidget {
         var provider = Provider.of<AuthValidationProvider>(context);
         return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: Theme.of(context).secondaryHeaderColor),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           title: Text(
-            "forgot_password".tr(),),
+            "forgot_password".tr(),style: Theme.of(context).textTheme.titleSmall,),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
