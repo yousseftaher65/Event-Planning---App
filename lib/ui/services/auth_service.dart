@@ -18,9 +18,9 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
+      DialogUtils.showLoding(context, "Loading");
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-
       await Future.delayed(Duration(seconds: 1));
       Navigator.pop(
         context,
@@ -43,7 +43,6 @@ class AuthService {
       DialogUtils.hideLoding(context);
     } on FirebaseAuthException catch (e) {
        DialogUtils.hideLoding(context);
-
       String errorMessage = '';
       if (e.code == 'email-already-in-use') {
         errorMessage = ("something_went_wrong");
