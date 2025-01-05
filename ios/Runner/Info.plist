@@ -48,8 +48,8 @@
 		<string>Main</string>
 		<key>CFBundleLocalizations</key>
 		<array>
-		<string>en</string>
-		<string>nb</string>
+			<string>en</string>
+			<string>nb</string>
 		</array>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>

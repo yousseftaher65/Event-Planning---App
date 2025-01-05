@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/cache/introduction_cache.dart';
+import 'package:event_planning_pojo/ui/providers/auth_validation_provider.dart';
 import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
 import 'package:event_planning_pojo/ui/screens/edit_event/edit_event.dart';
 import 'package:event_planning_pojo/ui/screens/event_details/event_details_screen.dart';
@@ -10,7 +11,9 @@ import 'package:event_planning_pojo/ui/screens/intro_screens/intro_screen.dart';
 import 'package:event_planning_pojo/ui/screens/auth/forget_pass_screen.dart';
 import 'package:event_planning_pojo/ui/screens/auth/login_screen.dart';
 import 'package:event_planning_pojo/ui/screens/auth/register_screen.dart';
+import 'package:event_planning_pojo/ui/screens/splash_screen/splash_screen.dart';
 import 'package:event_planning_pojo/ui/screens/start_screen/start_screen.dart';
+import 'package:event_planning_pojo/ui/services/auth_service.dart';
 import 'package:event_planning_pojo/ui/theme/dark_theme.dart';
 import 'package:event_planning_pojo/ui/theme/light_theme.dart';
 import 'package:event_planning_pojo/ui/theme/theme.dart';
@@ -31,27 +34,25 @@ void main() async {
   await IntroductionCache.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool initialIsDarkMode =
-      prefs.getBool('isDarkMode') ?? ThemeMode.light == ThemeMode.light;
-  bool? start = IntroductionCache.getStart();
-  bool? eligibility = IntroductionCache.getEligibility();
-
-  String initialRoute;
-  if (start == true) {
-    initialRoute = eligibility == true ? LoginScreen.tag : IntroScreen.tag;
-  } else {
-    initialRoute = StartScreen.tag;
-  }
+  prefs.getBool('isDarkMode') ?? ThemeMode.light == ThemeMode.light;
 
   runApp(
-    ChangeNotifierProvider(
-      create: (BuildContext context) {
-        return ThemeProvider(initialIsDarkMode);
-      },
+  MultiProvider(
+    providers: [
+ChangeNotifierProvider<ThemeProvider>(
+      create: (BuildContext context) 
+        => ThemeProvider(initialIsDarkMode),
+    ),
+ChangeNotifierProvider<AuthValidationProvider>(
+      create: (BuildContext context) 
+        => AuthValidationProvider(authService: AuthService()),
+    ),
+    ],
       child: EasyLocalization(
         supportedLocales: [Locale('en'), Locale('ar')],
         fallbackLocale: Locale('en'),
         path: 'assets/translations',
-        child: MainApp(initialRoute: initialRoute , initialIsDarkMode: initialIsDarkMode),
+        child: MainApp(initialIsDarkMode: initialIsDarkMode),
       ),
     ),
   );
@@ -59,8 +60,7 @@ void main() async {
 
 class MainApp extends StatelessWidget {
   final bool initialIsDarkMode;
-  final String initialRoute;
-  const MainApp({super.key, required this.initialRoute , required this.initialIsDarkMode});
+  const MainApp({super.key, required this.initialIsDarkMode});
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +76,9 @@ class MainApp extends StatelessWidget {
       theme: lightTheme.themeData,
       darkTheme: darkTheme.themeData,
       themeMode: themeProvider.themeMode,
-      initialRoute:
-          initialRoute,
+      initialRoute: SplashScreen.tag,
       routes: {
+        SplashScreen.tag: (context) => const SplashScreen(),
         StartScreen.tag: (context) => const StartScreen(),
         IntroScreen.tag: (context) => IntroScreen(),
         LoginScreen.tag: (context) => LoginScreen(),
