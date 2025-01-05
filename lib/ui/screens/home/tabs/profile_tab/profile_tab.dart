@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/providers/auth_validation_provider.dart';
 import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
+import 'package:event_planning_pojo/ui/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +17,9 @@ class ProfileTab extends StatelessWidget {
     var provider = Provider.of<ThemeProvider>(context);
 
     return ChangeNotifierProvider(
-      create: (context) => AuthValidationProvider(),
+      create: (context) => AuthValidationProvider(authService: AuthService()),
       builder: (context, child) {
         var authProvider = Provider.of<AuthValidationProvider>(context);
-
         return Scaffold(
         appBar: AppBar(
           shape: RoundedRectangleBorder(

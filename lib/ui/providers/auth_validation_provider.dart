@@ -13,6 +13,10 @@ class AuthValidationProvider extends ChangeNotifier {
   final signUpKey = GlobalKey<FormState>();
   final signInKey = GlobalKey<FormState>();
 
+  AuthService authService;
+
+  AuthValidationProvider({required this.authService});
+
   String? validateEmailText(email) {
     if (email == null || email.isEmpty) {
       return "please_enter_email".tr();
@@ -53,7 +57,7 @@ class AuthValidationProvider extends ChangeNotifier {
     return null;
   }
 
-  AuthService authService = AuthService();
+  
 
   Future<void> signUp(BuildContext context) async {
     if (signUpKey.currentState?.validate() ?? false) {

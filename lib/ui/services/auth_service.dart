@@ -42,7 +42,7 @@ class AuthService {
 
       DialogUtils.hideLoding(context);
     } on FirebaseAuthException catch (e) {
-       DialogUtils.hideLoding(context);
+      DialogUtils.hideLoding(context);
       String errorMessage = '';
       if (e.code == 'email-already-in-use') {
         errorMessage = ("something_went_wrong");
@@ -67,12 +67,12 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
-            DialogUtils.showLoding(context, "Loading");
+      DialogUtils.showLoding(context, "Loading");
 
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-                DialogUtils.hideLoding(context);
+      DialogUtils.hideLoding(context);
 
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection("users")
@@ -82,15 +82,16 @@ class AuthService {
       final String userName = documentSnapshot.get('name');
       final String userEmail = documentSnapshot.get('email');
 
-      await Future.delayed(Duration(seconds: 1));
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        HomeScreen.tag,
-        (route) => false,
-        arguments: {'name': userName, 'email': userEmail},
-      );
+      await Future.delayed(Duration(milliseconds: 1750), () {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          HomeScreen.tag,
+          (route) => false,
+          arguments: {'name': userName, 'email': userEmail},
+        );
+      });
     } on FirebaseAuthException catch (e) {
-            DialogUtils.hideLoding(context);
+      DialogUtils.hideLoding(context);
 
       String errorMessage = '';
       if (e.code == 'wrong-password') {
@@ -107,9 +108,8 @@ class AuthService {
         errorMessage = "something_went_wrong";
       }
       snack(errorMessage, context);
-
     } catch (e) {
-            DialogUtils.hideLoding(context);
+      DialogUtils.hideLoding(context);
 
       snack("${"error".tr()} : $e", context);
     }
@@ -136,44 +136,46 @@ class AuthService {
 
       // Once signed in, return the UserCredential
       UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(credential);
       final User? user = userCredential.user;
 
       if (user != null) {
         String name = user.displayName ?? '';
         String email = user.email ?? '';
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          HomeScreen.tag,
-          (route) => false,
-          arguments: {
-            'name': name,
-            'email': email,
-          },
-        );
+        await Future.delayed(Duration(milliseconds: 1750), () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            HomeScreen.tag,
+            (route) => false,
+            arguments: {
+              'name': name,
+              'email': email,
+            },
+          );
+        });
       }
     } on FirebaseAuthException catch (e) {
-            DialogUtils.hideLoding(context);
+      DialogUtils.hideLoding(context);
 
       snack("${"error".tr()} : $e", context);
     } catch (e) {
-            DialogUtils.hideLoding(context);
+      DialogUtils.hideLoding(context);
 
       snack("something_went_wrong", context);
     }
   }
 
   Future<void> signOut(BuildContext context) async {
-
     GoogleSignIn googleSignOut = GoogleSignIn();
     googleSignOut.disconnect();
     await FirebaseAuth.instance.signOut();
-    await Future.delayed(Duration(seconds: 1));
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      LoginScreen.tag,
-      (route) => false,
-    );
+    await Future.delayed(Duration(seconds: 1), () {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        LoginScreen.tag,
+        (route) => false,
+      );
+    });
   }
 
   void snack(String message, BuildContext context) {
