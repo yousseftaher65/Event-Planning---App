@@ -40,8 +40,8 @@ class DarkTheme extends BaseTheme {
           elevation: 0,
           shape: CircleBorder(
             side: BorderSide(
-              color: secondaryColor,
-              //width: 4,
+              color: accentColor,
+              width: 4,
             ),
           ),
           backgroundColor: primaryColor,

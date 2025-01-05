@@ -64,7 +64,7 @@ class AuthValidationProvider extends ChangeNotifier {
         name: nameController.text,
       );
     }
-    // notifyListeners();
+     notifyListeners();
   }
 
   Future<void> signIn(BuildContext context) async {
@@ -75,20 +75,26 @@ class AuthValidationProvider extends ChangeNotifier {
         password: passwordController.text,
       );
     }
-    // notifyListeners();
+     notifyListeners();
   }
 
   Future<void> signInWithGoogle(BuildContext context) async {
     await authService.signInWithGoogle(context);
   }
 
-  
-  // @override
-  // void dispose() {
-  //   emailController.dispose();
-  //   passwordController.dispose();
-  //   //rePasswordController.dispose();
-  //   nameController.dispose();
-  //   super.dispose();
-  // }
+  Future<void> signOut(BuildContext context) async {
+    await authService.signOut(context);
+    emailController.clear();
+    passwordController.clear();
+    nameController.clear();
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
+    super.dispose();
+  }
 }

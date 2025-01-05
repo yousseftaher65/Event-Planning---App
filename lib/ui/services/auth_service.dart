@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/screens/auth/login_screen.dart';
 import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
+import 'package:event_planning_pojo/ui/widgets/alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -38,7 +39,11 @@ class AuthService {
         "name": name,
         "email": email,
       });
+
+      DialogUtils.hideLoding(context);
     } on FirebaseAuthException catch (e) {
+       DialogUtils.hideLoding(context);
+
       String errorMessage = '';
       if (e.code == 'email-already-in-use') {
         errorMessage = ("something_went_wrong");
@@ -51,6 +56,8 @@ class AuthService {
       }
       snack(errorMessage, context);
     } catch (e) {
+      DialogUtils.hideLoding(context);
+
       snack("${"error".tr()} : $e", context);
     }
   }
@@ -61,11 +68,15 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
+            DialogUtils.showLoding(context, "Loading");
+
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
+                DialogUtils.hideLoding(context);
+
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection("something_went_wrong")
+          .collection("users")
           .doc(userCredential.user!.uid)
           .get();
 
@@ -80,6 +91,8 @@ class AuthService {
         arguments: {'name': userName, 'email': userEmail},
       );
     } on FirebaseAuthException catch (e) {
+            DialogUtils.hideLoding(context);
+
       String errorMessage = '';
       if (e.code == 'wrong-password') {
         errorMessage = "something_went_wrong";
@@ -95,7 +108,10 @@ class AuthService {
         errorMessage = "something_went_wrong";
       }
       snack(errorMessage, context);
+
     } catch (e) {
+            DialogUtils.hideLoding(context);
+
       snack("${"error".tr()} : $e", context);
     }
   }
@@ -108,7 +124,7 @@ class AuthService {
       if (googleUser == null) {
         return; // The user canceled the sign-in
       }
-
+      DialogUtils.showLoding(context, "Loading");
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
@@ -133,18 +149,23 @@ class AuthService {
           (route) => false,
           arguments: {
             'name': name,
-            'email': email, 
+            'email': email,
           },
         );
       }
     } on FirebaseAuthException catch (e) {
+            DialogUtils.hideLoding(context);
+
       snack("${"error".tr()} : $e", context);
     } catch (e) {
+            DialogUtils.hideLoding(context);
+
       snack("something_went_wrong", context);
     }
   }
 
   Future<void> signOut(BuildContext context) async {
+
     GoogleSignIn googleSignOut = GoogleSignIn();
     googleSignOut.disconnect();
     await FirebaseAuth.instance.signOut();
