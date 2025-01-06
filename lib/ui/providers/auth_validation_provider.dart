@@ -13,9 +13,8 @@ class AuthValidationProvider extends ChangeNotifier {
   final signUpKey = GlobalKey<FormState>();
   final signInKey = GlobalKey<FormState>();
 
-  AuthService authService;
+  AuthService authService = AuthService();
 
-  AuthValidationProvider({required this.authService});
 
   String? validateEmailText(email) {
     if (email == null || email.isEmpty) {

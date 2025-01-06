@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/cache/introduction_cache.dart';
-import 'package:event_planning_pojo/ui/providers/auth_validation_provider.dart';
 import 'package:event_planning_pojo/ui/providers/theme_provider.dart';
 import 'package:event_planning_pojo/ui/screens/edit_event/edit_event.dart';
 import 'package:event_planning_pojo/ui/screens/event_details/event_details_screen.dart';
@@ -13,7 +12,6 @@ import 'package:event_planning_pojo/ui/screens/auth/login_screen.dart';
 import 'package:event_planning_pojo/ui/screens/auth/register_screen.dart';
 import 'package:event_planning_pojo/ui/screens/splash_screen/splash_screen.dart';
 import 'package:event_planning_pojo/ui/screens/start_screen/start_screen.dart';
-import 'package:event_planning_pojo/ui/services/auth_service.dart';
 import 'package:event_planning_pojo/ui/theme/dark_theme.dart';
 import 'package:event_planning_pojo/ui/theme/light_theme.dart';
 import 'package:event_planning_pojo/ui/theme/theme.dart';
@@ -37,24 +35,16 @@ void main() async {
   prefs.getBool('isDarkMode') ?? ThemeMode.light == ThemeMode.light;
 
   runApp(
-  MultiProvider(
-    providers: [
-ChangeNotifierProvider<ThemeProvider>(
-      create: (BuildContext context) 
-        => ThemeProvider(initialIsDarkMode),
-    ),
-ChangeNotifierProvider<AuthValidationProvider>(
-      create: (BuildContext context) 
-        => AuthValidationProvider(authService: AuthService()),
-    ),
-    ],
-      child: EasyLocalization(
-        supportedLocales: [Locale('en'), Locale('ar')],
-        fallbackLocale: Locale('en'),
-        path: 'assets/translations',
-        child: MainApp(initialIsDarkMode: initialIsDarkMode),
+  
+      ChangeNotifierProvider(
+        create: (context) => ThemeProvider(initialIsDarkMode),
+        child: EasyLocalization(
+          supportedLocales: [Locale('en'), Locale('ar')],
+          fallbackLocale: Locale('en'),
+          path: 'assets/translations',
+          child: MainApp(initialIsDarkMode: initialIsDarkMode),
+        ),
       ),
-    ),
   );
 }
 

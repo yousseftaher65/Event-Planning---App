@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/providers/auth_validation_provider.dart';
-import 'package:event_planning_pojo/ui/services/auth_service.dart';
 import 'package:event_planning_pojo/ui/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +11,7 @@ class ForgetPassScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create:(context) => AuthValidationProvider(authService: AuthService()),
+      create:(context) => AuthValidationProvider(),
       builder: (context, child) {
         var provider = Provider.of<AuthValidationProvider>(context);
         return Scaffold(

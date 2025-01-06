@@ -18,19 +18,23 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
-      DialogUtils.showLoding(context, "Loading");
-      UserCredential userCredential = await FirebaseAuth.instance
+
+      
+       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      await Future.delayed(Duration(seconds: 1));
+
+     await Future.delayed(Duration(seconds: 1), () {
       Navigator.pop(
-        context,
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("account_created".tr()),
-            duration: Duration(seconds: 3),
+          context,
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Account created successfully'),
+              duration: Duration(seconds: 3),
+            ),
           ),
-        ),
-      );
+        );
+     });
+      
 
       await FirebaseFirestore.instance
           .collection("users")
@@ -40,9 +44,9 @@ class AuthService {
         "email": email,
       });
 
-      DialogUtils.hideLoding(context);
+     // DialogUtils.hideLoding(context);
     } on FirebaseAuthException catch (e) {
-      DialogUtils.hideLoding(context);
+     // DialogUtils.hideLoding(context);
       String errorMessage = '';
       if (e.code == 'email-already-in-use') {
         errorMessage = ("something_went_wrong");
@@ -72,8 +76,8 @@ class AuthService {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      DialogUtils.hideLoding(context);
 
+ 
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection("users")
           .doc(userCredential.user!.uid)
@@ -82,14 +86,14 @@ class AuthService {
       final String userName = documentSnapshot.get('name');
       final String userEmail = documentSnapshot.get('email');
 
-      await Future.delayed(Duration(milliseconds: 1750), () {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          HomeScreen.tag,
-          (route) => false,
-          arguments: {'name': userName, 'email': userEmail},
-        );
-      });
+      
+        await Future.delayed(Duration(seconds: 1));
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        HomeScreen.tag,
+        (route) => false,
+        arguments: {'name': userName, 'email': userEmail},
+      );
     } on FirebaseAuthException catch (e) {
       DialogUtils.hideLoding(context);
 
