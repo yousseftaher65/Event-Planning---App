@@ -135,9 +135,13 @@ class CreateEventTab extends StatelessWidget {
                           ),
                           Spacer(),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              eventProvider.chooseDate(context);
+                            },
                             child: Text(
-                              "choose_date".tr(),
+                              eventProvider.selectedDate == null ?
+                              "choose_date".tr()
+                              : DateFormat('dd/MM/yyyy').format(eventProvider.selectedDate!),
                               style:
                                   Theme.of(context).textTheme.bodyLarge!.copyWith(
                                         color: Theme.of(context).primaryColor,
@@ -164,9 +168,12 @@ class CreateEventTab extends StatelessWidget {
                           ),
                           Spacer(),
                           TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "choose_time".tr(),
+                            onPressed: (){
+                             eventProvider.chooseTime(context);
+                            },
+                            child: Text( eventProvider.selectedTime == null ?
+                              "choose_time".tr()
+                              : eventProvider.selectedTime!.format(context),
                               style:
                                   Theme.of(context).textTheme.bodyLarge!.copyWith(
                                         color: Theme.of(context).primaryColor,

@@ -138,12 +138,19 @@ class EditEvent extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           Spacer(),
-                          Text(
-                            '30/11/2024',
+                          TextButton(
+                            onPressed: () {
+                              editEventProvider.chooseDate(context);
+                            },
+                           child: Text(
+                            editEventProvider.selectedDate == null ?
+                              "choose_date".tr()
+                              : DateFormat('dd/MM/yyyy').format(editEventProvider.selectedDate!),
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       color: Theme.of(context).primaryColor,
                                     ),
+                            ),
                           ),
                         ],
                       ),
@@ -164,12 +171,19 @@ class EditEvent extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           Spacer(),
-                          Text(
-                            '11:22PM',
+                          TextButton(
+                            onPressed: () {
+                              editEventProvider.chooseTime(context);
+                            },
+                            child: Text(
+                            editEventProvider.selectedTime == null ?
+                              "choose_time".tr()
+                              : editEventProvider.selectedTime!.format(context),
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       color: Theme.of(context).primaryColor,
                                     ),
+                            ),
                           ),
                         ],
                       ),
