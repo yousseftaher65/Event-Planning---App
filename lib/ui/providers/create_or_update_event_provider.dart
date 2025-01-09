@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/ui/firebase_utils/firebase_utils.dart';
+import 'package:event_planning_pojo/ui/model/event_model.dart';
 import 'package:flutter/material.dart';
 
 class CreateOrUpdateEventProvider extends ChangeNotifier {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  DateTime? selectedDate ;
-  TimeOfDay? selectedTime ;
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
+
 
   String? titleValidation(String? tilte) {
     if (tilte == null || tilte.isEmpty) {
@@ -29,6 +32,21 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
     }
   }
 
+  void addEvent(String image, String name , BuildContext context) {
+    EventModel eventModel = EventModel(
+        image: image ,
+        name: name,
+        title: titleController.text,
+        description: descriptionController.text,
+        date: selectedDate!,
+        time: selectedTime.toString(),);
+
+    FirebaseUtils.addEvent(eventModel).timeout(Duration(milliseconds:500),onTimeout: (){
+      Navigator.pop(context, ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("event_added_successfully".tr()),duration: Duration(seconds: 3),)));
+      // print("event added successfully");
+    });
+  }
+
   void chooseDate(BuildContext context) async {
     var selectDate = await showDatePicker(
       context: context,
@@ -38,7 +56,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
     );
     if (selectDate != null) {
       selectedDate = selectDate;
-     } else {
+    } else {
       selectedDate = null;
     }
     notifyListeners();
@@ -51,7 +69,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
     );
     if (selectTime != null) {
       selectedTime = selectTime;
-      } else {
+    } else {
       selectedTime = null;
     }
     notifyListeners();

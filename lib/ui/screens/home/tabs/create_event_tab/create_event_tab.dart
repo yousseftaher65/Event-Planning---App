@@ -241,6 +241,9 @@ class CreateEventTab extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           eventProvider.validate();
+                          eventProvider.addEvent(
+                              provider
+                                  .categoryList[provider.currentCategoryIndex], provider.categoryList[provider.currentCategoryIndex] , context);
                         },
                         child: Text("create_event".tr(),
                             style: Theme.of(context)
