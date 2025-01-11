@@ -14,6 +14,19 @@ class CategoryEventProvider extends ChangeNotifier {
     "workshop",
   ];
 
+  final List<String> eventslist = [
+    "all",
+    "book_club",
+    "eating",
+    "birthday",
+    "exhibition",
+    "gaming",
+    "sport",
+    "holiday",
+    "meeting",
+    "workshop",
+  ];
+
   int currentCategoryIndex = 0;
 
   changeCategory(int index) {
