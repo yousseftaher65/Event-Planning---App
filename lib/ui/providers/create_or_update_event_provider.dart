@@ -9,7 +9,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
-
+  List<EventModel> events = [];
 
   String? titleValidation(String? tilte) {
     if (tilte == null || tilte.isEmpty) {
@@ -32,20 +32,80 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
     }
   }
 
-  void addEvent(String image, String name , BuildContext context) {
+  void addEvent(String image, String name, BuildContext context) {
     EventModel eventModel = EventModel(
-        image: image ,
-        name: name,
-        title: titleController.text,
-        description: descriptionController.text,
-        date: selectedDate!,
-        time: selectedTime.toString(),);
+      image: image,
+      name: name,
+      title: titleController.text,
+      description: descriptionController.text,
+      date: selectedDate!,
+      time: selectedTime.toString(),
+    );
 
-    FirebaseUtils.addEvent(eventModel).timeout(Duration(milliseconds:500),onTimeout: (){
-      Navigator.pop(context, ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("event_added_successfully".tr()),duration: Duration(seconds: 3),)));
-      // print("event added successfully");
+    FirebaseUtils.addEvent(eventModel).timeout(Duration(milliseconds: 500),
+        onTimeout: () {
+      Navigator.pop(
+        context,
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("event_added_successfully".tr()),
+            duration: Duration(seconds: 3),
+          ),
+        ),
+      );
     });
   }
+
+  void updateEvent(String image, String name, BuildContext context) {
+    EventModel eventModel = EventModel(
+      image: image,
+      name: name,
+      title: titleController.text,
+      description: descriptionController.text,
+      date: selectedDate!,
+      time: selectedTime.toString(),
+    );
+
+    FirebaseUtils.updateEvent(eventModel).timeout(Duration(milliseconds: 500),
+        onTimeout: () {
+      Navigator.pop(
+        context,
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("event_updated_successfully".tr()),
+            duration: Duration(seconds: 3),
+          ),
+        ),
+      );
+    });
+  }
+
+  void deleteEvent(String id, BuildContext context) {
+    FirebaseUtils.deleteEvent(id).timeout(Duration(milliseconds: 500),
+        onTimeout: () {
+      Navigator.pop(
+        context,
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("event_deleted_successfully".tr()),
+            duration: Duration(seconds: 3),
+          ),
+        ),
+      );
+    });
+  }
+
+  // Future<void> getEvents() async {
+  //   try {
+  //     FirebaseUtils.getEvent().listen((QuerySnapshot<EventModel> snapshot) {
+  //       events = snapshot.docs.map((doc) => doc.data()).toList();
+  //       notifyListeners();
+  //     });
+  //   } catch (e) {
+  //     // Handle error
+  //     print("Error fetching events: $e");
+  //   }
+  // }
 
   void chooseDate(BuildContext context) async {
     var selectDate = await showDatePicker(

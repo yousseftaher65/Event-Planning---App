@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/ui/model/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EventCard extends StatelessWidget {
-  final String imageName;
-  const EventCard({super.key, required this.imageName});
+  final EventModel model;
+  const EventCard({super.key, required this.model,});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class EventCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.asset('assets/images/$imageName.png'),
+                  child: Image.asset('assets/images/${model.image}.png'),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -39,7 +41,7 @@ class EventCard extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            'Meeting for Updating The Development Method',
+                            model.title,
                             softWrap: true,
                             style: Theme.of(context)
                                 .textTheme
@@ -70,10 +72,10 @@ class EventCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    '22',
+                    model.date.day.toString(),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontFamily: GoogleFonts.inter().fontFamily,
                           fontWeight: FontWeight.bold,
@@ -82,7 +84,7 @@ class EventCard extends StatelessWidget {
                         ),
                   ),
                   Text(
-                    'Nov',
+                    DateFormat('MMM').format(model.date).toUpperCase(),
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontFamily: GoogleFonts.inter().fontFamily,
                           fontWeight: FontWeight.bold,

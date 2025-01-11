@@ -34,9 +34,10 @@ class FavTab extends StatelessWidget {
                             SizedBox(height: 16),
                         itemCount: provider.categoryList.length,
                         itemBuilder: (context, index) {
-                          return EventCard(
-                            imageName: provider.categoryList[index],
-                          );
+                          return SizedBox.shrink();
+                          // return EventCard(
+                          //   imageName: provider.categoryList[index],
+                          // );
                         },
                       ),
                     ),
