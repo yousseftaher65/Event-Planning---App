@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/ui/model/event_model.dart';
 import 'package:event_planning_pojo/ui/screens/edit_event/edit_event.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,7 @@ class EventDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var arg = ModalRoute.of(context)!.settings.arguments as EventModel;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -41,13 +43,13 @@ class EventDetailsScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
-                  'assets/images/meeting.png',
+                  'assets/images/${arg.image}.png',
                   height: 235,
                 ),
               ),
               SizedBox(height: 16),
               Text(
-                'Important Meeting',
+                arg.title,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontFamily: GoogleFonts.inter().fontFamily,
                     color: Theme.of(context).primaryColor,
@@ -83,7 +85,7 @@ class EventDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '22 Novamber 2022',
+                          DateFormat('dd MMMM yyyy').format(arg.date),
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
@@ -93,7 +95,7 @@ class EventDetailsScreen extends StatelessWidget {
                                 color: Theme.of(context).primaryColor),
                         ),
                         Text(
-                          '12:00 PM',
+                          arg.time.substring(10, 15),
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge
@@ -178,10 +180,11 @@ class EventDetailsScreen extends StatelessWidget {
               Container(
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.only(right: 24),
-                child: Text('Lorem ipsum dolor sit amet consectetur. Vulputate eleifend suscipit eget neque senectus a. Nulla at non malesuada odio duis lectus amet nisi sit. Risus hac enim maecenas auctor et. At cras massa diam porta facilisi lacus purus. Iaculis eget quis ut amet. Sit ac malesuada nisi quis  feugiat.' 
-                , style: Theme.of(context).textTheme.bodyLarge,
-                softWrap: true,
-                ),
+                child: Text(arg.description , style: Theme.of(context).textTheme.bodyLarge,),
+                // Text('Lorem ipsum dolor sit amet consectetur. Vulputate eleifend suscipit eget neque senectus a. Nulla at non malesuada odio duis lectus amet nisi sit. Risus hac enim maecenas auctor et. At cras massa diam porta facilisi lacus purus. Iaculis eget quis ut amet. Sit ac malesuada nisi quis  feugiat.' 
+                // , style: Theme.of(context).textTheme.bodyLarge,
+                // softWrap: true,
+                // ),
               )
             ],
           ),

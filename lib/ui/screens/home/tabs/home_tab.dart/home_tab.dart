@@ -134,7 +134,7 @@ class HomeTab extends StatelessWidget {
                               return InkWell(
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, EventDetailsScreen.tag);
+                                      context, EventDetailsScreen.tag , arguments: snapshot.data!.docs[index].data());
                                 },
                                 child: EventCard(
                                   model: snapshot.data!.docs[index].data(),
