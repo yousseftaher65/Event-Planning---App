@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/firebase_utils/firebase_utils.dart';
 import 'package:event_planning_pojo/ui/model/event_model.dart';
+import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class CreateOrUpdateEventProvider extends ChangeNotifier {
@@ -56,8 +57,9 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
     });
   }
 
-  void updateEvent(String image, String name, BuildContext context) {
+  void updateEvent(String id, String image, String name, BuildContext context) {
     EventModel eventModel = EventModel(
+      id: id,
       image: image,
       name: name,
       title: titleController.text,
@@ -68,13 +70,15 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
 
     FirebaseUtils.updateEvent(eventModel).timeout(Duration(milliseconds: 500),
         onTimeout: () {
-      Navigator.pop(
+      Navigator.pushNamedAndRemoveUntil(
         context,
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("event_updated_successfully".tr()),
-            duration: Duration(seconds: 3),
-          ),
+        HomeScreen.tag,
+        (route) => false,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("event_updated_successfully".tr()),
+          duration: Duration(seconds: 3),
         ),
       );
     });
