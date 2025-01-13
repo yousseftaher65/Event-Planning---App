@@ -20,7 +20,14 @@ int currentIndex = 0;
 String? _userName;
 String? _userEmail;
 
+
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+ 
+  void dispose() {
+    currentIndex = 0;
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final arguments =

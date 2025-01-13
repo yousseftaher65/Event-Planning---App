@@ -27,7 +27,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseFirestore.instance.disableNetwork();
+  await FirebaseFirestore.instance.enableNetwork();
   await EasyLocalization.ensureInitialized();
   await IntroductionCache.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
