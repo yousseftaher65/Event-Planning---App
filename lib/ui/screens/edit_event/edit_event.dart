@@ -65,10 +65,6 @@ class EditEvent extends StatelessWidget {
                                 return InkWell(
                                   onTap: () {
                                     provider.changeCategory(index);
-                                    print(provider.currentCategoryIndex);
-                                    print(provider.categoryList[
-                                        provider.currentCategoryIndex]);
-                                    //print(args.image);
                                   },
                                   child: CategoryEventItem(
                                       isSelected: index ==

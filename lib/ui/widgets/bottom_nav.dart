@@ -12,6 +12,11 @@ int currentIndex = 0;
 
 class _BottomNavState extends State<BottomNav> {
   @override
+  void dispose() {
+    currentIndex = 0;
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
         currentIndex: currentIndex,
@@ -19,6 +24,7 @@ class _BottomNavState extends State<BottomNav> {
           setState(() {
               currentIndex = value;
               widget.callBack(currentIndex);
+              
           });
         },
         items: [

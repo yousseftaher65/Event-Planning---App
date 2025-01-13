@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/providers/category_event_provider.dart';
-import 'package:event_planning_pojo/ui/widgets/event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
