@@ -120,7 +120,7 @@ class HomeTab extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
-                } else if (snapshot.hasData) {
+                } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                     child: Column(
@@ -149,8 +149,7 @@ class HomeTab extends StatelessWidget {
                 } else {
                   return Center(
                       child: Text("No data available",
-                              style: Theme.of(context).textTheme.titleMedium)
-                          .tr());
+                              style: Theme.of(context).textTheme.titleMedium).tr());
                 }
               },
             ),
