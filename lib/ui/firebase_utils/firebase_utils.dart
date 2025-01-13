@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_planning_pojo/ui/model/event_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseUtils {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   static CollectionReference<EventModel> getEventsCollection() {
-    return firestore
+    return firestore.collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection(EventModel.collectionName)
         .withConverter<EventModel>(
             fromFirestore: (snapshot, options) =>
@@ -43,8 +45,7 @@ class FirebaseUtils {
   }
 
   static Future<void> updateEvent(EventModel event) async {
-    var collection =
-        getEventsCollection().doc(event.id).update(event.toFirestore());
+    var collection = getEventsCollection().doc(event.id).update(event.toFirestore());
     return collection;
   }
 }
