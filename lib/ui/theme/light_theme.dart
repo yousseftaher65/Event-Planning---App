@@ -32,12 +32,14 @@ class LightTheme extends BaseTheme {
 
   @override
   ThemeData get themeData => ThemeData(
+        unselectedWidgetColor: secondaryColor,
+        splashColor: primaryColor,
         secondaryHeaderColor: accentColor,
         indicatorColor: accentColor,
         primaryColor: primaryColor,
         scaffoldBackgroundColor: backgroundColor,
         floatingActionButtonTheme: FloatingActionButtonThemeData(
-
+          foregroundColor: secondaryColor,
           elevation: 0,
           shape: CircleBorder(
             side: BorderSide(

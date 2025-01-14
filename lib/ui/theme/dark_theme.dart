@@ -32,17 +32,17 @@ class DarkTheme extends BaseTheme {
 
   @override
   ThemeData get themeData => ThemeData(
+        unselectedWidgetColor: primaryColor,
+        splashColor: accentColor,
         secondaryHeaderColor: primaryColor,
         indicatorColor: accentColor,
         primaryColor: primaryColor,
         scaffoldBackgroundColor: backgroundColor,
         floatingActionButtonTheme: FloatingActionButtonThemeData(
+          foregroundColor: accentColor,
           elevation: 0,
           shape: CircleBorder(
-            side: BorderSide(
-              color: accentColor,
-              width: 4,
-            ),
+            side: BorderSide.none,
           ),
           backgroundColor: primaryColor,
         ),
