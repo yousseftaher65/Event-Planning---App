@@ -57,14 +57,6 @@ class DarkTheme extends BaseTheme {
           backgroundColor: backgroundColor,
           centerTitle: true,
         ),
-        bottomAppBarTheme: BottomAppBarTheme(
-          height: 60,
-          color: secondaryColor,
-          elevation: 0,
-          padding: EdgeInsets.zero,
-          shape: CircularNotchedRectangle(),
-          surfaceTintColor: Colors.transparent,
-        ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           elevation: 0,
           type: BottomNavigationBarType.fixed,
