@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeTab extends StatelessWidget {
-  static const String tag = 'home_tab';
   final String? userName;
  const HomeTab({super.key, required this.userName});
 

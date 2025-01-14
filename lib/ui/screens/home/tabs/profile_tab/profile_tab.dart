@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
-  static const String tag = 'profile_tab';
   final String? userName;
   final String? userEmail;
   const ProfileTab({super.key , required this.userName, required this.userEmail});
