@@ -7,6 +7,7 @@ import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
 import 'package:event_planning_pojo/ui/widgets/alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:flutter/material.dart';
 
@@ -18,13 +19,11 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
-
-      
-       UserCredential userCredential = await FirebaseAuth.instance
+      UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
-     await Future.delayed(Duration(seconds: 1), () {
-      Navigator.pop(
+      await Future.delayed(Duration(seconds: 1), () {
+        Navigator.pop(
           context,
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -33,8 +32,7 @@ class AuthService {
             ),
           ),
         );
-     });
-      
+      });
 
       await FirebaseFirestore.instance
           .collection("users")
@@ -44,9 +42,9 @@ class AuthService {
         "email": email,
       });
 
-     // DialogUtils.hideLoding(context);
+      // DialogUtils.hideLoding(context);
     } on FirebaseAuthException catch (e) {
-     // DialogUtils.hideLoding(context);
+      // DialogUtils.hideLoding(context);
       String errorMessage = '';
       if (e.code == 'email-already-in-use') {
         errorMessage = ("something_went_wrong");
@@ -76,8 +74,6 @@ class AuthService {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-
- 
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection("users")
           .doc(userCredential.user!.uid)
@@ -86,8 +82,7 @@ class AuthService {
       final String userName = documentSnapshot.get('name');
       final String userEmail = documentSnapshot.get('email');
 
-      
-        await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: 1));
       Navigator.pushNamedAndRemoveUntil(
         context,
         HomeScreen.tag,
@@ -140,7 +135,7 @@ class AuthService {
 
       // Once signed in, return the UserCredential
       UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithCredential(credential);
+          await FirebaseAuth.instance.signInWithCredential(credential);
       final User? user = userCredential.user;
 
       if (user != null) {
@@ -183,11 +178,11 @@ class AuthService {
   }
 
   void snack(String message, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message.tr()),
-        duration: Duration(seconds: 3),
-      ),
-    );
+    Fluttertoast.showToast(
+        msg: message.tr(),
+        toastLength: Toast.LENGTH_SHORT,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }
