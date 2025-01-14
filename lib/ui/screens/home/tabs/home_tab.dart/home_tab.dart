@@ -41,7 +41,7 @@ class HomeTab extends StatelessWidget {
                         fontSize: 14),
                   ),
                   Text(
-                    userName ?? 'User',
+                    userName ?? "user".tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context)
@@ -147,8 +147,8 @@ class HomeTab extends StatelessWidget {
                   );
                 } else {
                   return Center(
-                      child: Text("No data available",
-                              style: Theme.of(context).textTheme.titleMedium).tr());
+                      child: Text("no_events_found".tr(),
+                              style: Theme.of(context).textTheme.titleMedium));
                 }
               },
             ),

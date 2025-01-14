@@ -85,5 +85,14 @@
     "cancel": "إلغاء",
     "yes": "نعم",
     "no": "لا",
-    "all":"الكل"
+    "all":"الكل",
+    "event_added_successfully": "تمت اضافة الفعالية بنجاح.",
+    "event_updated_successfully": "تم تعديل الفعالية بنجاح.",
+    "event_deleted_successfully": "تم حذف الفعالية بنجاح.",
+    "event_favourite_successfully" : "تمت ااضافة الفعالية للمفضلة",
+    "event_unfavourite_successfully" : "تم حذف الفعالية من المفضلة",
+    "loading" : "جار التحميل...",
+    "no_events_found" : "لا يوجد فعاليات",
+    "no_favourite_events_found" : "لا يوجد فعاليات مفضلة",
+    "user" : "مستخدم"
 }

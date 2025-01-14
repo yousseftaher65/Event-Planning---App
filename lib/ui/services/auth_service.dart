@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/screens/auth/login_screen.dart';
@@ -69,7 +67,7 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
-      DialogUtils.showLoding(context, "Loading");
+      DialogUtils.showLoding(context, "loading".tr());
 
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -122,7 +120,7 @@ class AuthService {
       if (googleUser == null) {
         return; // The user canceled the sign-in
       }
-      DialogUtils.showLoding(context, "Loading");
+      DialogUtils.showLoding(context,  "loading".tr());
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
