@@ -87,11 +87,13 @@ class CreateEventTab extends StatelessWidget {
                         validator: eventProvider.titleValidation,
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(24),
-                            labelText: "event_title".tr(),
-                            labelStyle: Theme.of(context).textTheme.bodyLarge,
+                            hintText: "event_title".tr(),
                             prefixIcon: Icon(
                               FontAwesomeIcons.penToSquare,
-                              color: Theme.of(context).textTheme.bodyLarge!.color,
+                              color: Theme.of(context)
+                                  .inputDecorationTheme
+                                  .hintStyle!
+                                  .color,
                             )),
                       ),
                       SizedBox(
@@ -111,10 +113,8 @@ class CreateEventTab extends StatelessWidget {
                         controller: eventProvider.descriptionController,
                         validator: eventProvider.descreptionValidation,
                         decoration: InputDecoration(
-                          labelText: "event_description".tr(),
-                          labelStyle: Theme.of(context).textTheme.bodyLarge,
+                          hintText: "event_description".tr(),
                           contentPadding: EdgeInsets.all(24),
-                          alignLabelWithHint: true,
                         ),
                       ),
                       SizedBox(

@@ -130,6 +130,7 @@ class DarkTheme extends BaseTheme {
           ),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          hintStyle: TextStyle(color: accentColor),
           labelStyle: TextStyle(color: borderColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
