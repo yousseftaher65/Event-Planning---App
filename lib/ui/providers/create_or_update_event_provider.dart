@@ -11,7 +11,42 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
-  List<EventModel> events = [];
+
+  List<String> categoryList = [
+    "book_club",
+    "eating",
+    "birthday",
+    "exhibition",
+    "gaming",
+    "sport",
+    "holiday",
+    "meeting",
+    "workshop",
+  ];
+
+  final List<String> eventslist = [
+    "all",
+    "book_club",
+    "eating",
+    "birthday",
+    "exhibition",
+    "gaming",
+    "sport",
+    "holiday",
+    "meeting",
+    "workshop",
+  ];
+
+  int currentCategoryIndex = 0;
+
+  changeCategory(int index) {
+    currentCategoryIndex = index;
+    notifyListeners();
+  }
+
+  initCategory(String image) {
+    currentCategoryIndex = categoryList.indexOf(image);
+  }
 
   String? titleValidation(String? tilte) {
     if (tilte == null || tilte.isEmpty) {
@@ -41,7 +76,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
       title: titleController.text,
       description: descriptionController.text,
       date: selectedDate!,
-      time: selectedTime.toString(),
+      time: selectedTime!,
     );
 
     FirebaseUtils.addEvent(eventModel).then((_) {
@@ -65,7 +100,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
       title: titleController.text,
       description: descriptionController.text,
       date: selectedDate!,
-      time: selectedTime.toString(),
+      time: selectedTime!,
     );
 
     FirebaseUtils.updateEvent(eventModel).then((_) {
@@ -92,8 +127,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
               toastLength: Toast.LENGTH_SHORT,
               backgroundColor: Colors.black87,
               textColor: Colors.white,
-              fontSize: 16.0)
-          );
+              fontSize: 16.0));
     });
   }
 

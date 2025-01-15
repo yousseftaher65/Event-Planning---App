@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class EventModel {
   static const String collectionName = 'events';
   String id;
@@ -6,7 +8,7 @@ class EventModel {
   String title;
   String description;
   DateTime date;
-  String time;
+  TimeOfDay time;
   String? location;
   bool isfavorite;
 
@@ -30,10 +32,17 @@ class EventModel {
         title: snapshot['title'],
         description: snapshot['description'],
         date: DateTime.fromMillisecondsSinceEpoch(snapshot['date']),
-        time: snapshot['time'],
+        time: convertMinutesToTimeOfDay(snapshot['time']),
         location: snapshot['location'],
         isfavorite: snapshot['isfavorite'],
       );
+
+      int convertTimeOfDayToMinutes(TimeOfDay time) {
+      return time.hour * 60 + time.minute;
+      }
+      static TimeOfDay convertMinutesToTimeOfDay(int totalMinutes) {
+      return TimeOfDay(hour: totalMinutes ~/ 60, minute: totalMinutes % 60);
+      }
   Map<String, dynamic> toFirestore() {
     return {
       'id': id,
@@ -42,7 +51,7 @@ class EventModel {
       'title': title,
       'description': description,
       'date': date.millisecondsSinceEpoch,
-      'time': time,
+      'time': convertTimeOfDayToMinutes(time),
       'location': location,
       'isfavorite': isfavorite,
     };

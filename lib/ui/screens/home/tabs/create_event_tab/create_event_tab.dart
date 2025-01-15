@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:event_planning_pojo/ui/providers/category_event_provider.dart';
 import 'package:event_planning_pojo/ui/providers/create_or_update_event_provider.dart';
 import 'package:event_planning_pojo/ui/widgets/category_event_item.dart';
 import 'package:flutter/material.dart';
@@ -13,22 +12,13 @@ class CreateEventTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (BuildContext context) => CategoryEventProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (BuildContext context) => CreateOrUpdateEventProvider(),
-          ),
-        ],
+    return ChangeNotifierProvider(
+        create: (BuildContext context) => CreateOrUpdateEventProvider(),
         builder: (context, child) {
-          var provider = Provider.of<CategoryEventProvider>(context);
-          var eventProvider = Provider.of<CreateOrUpdateEventProvider>(context);
+          var provider = Provider.of<CreateOrUpdateEventProvider>(context);
           return GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: Scaffold(
-              
               appBar: AppBar(
                 title: Text(
                   "create_event".tr(),
@@ -38,7 +28,7 @@ class CreateEventTab extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: SingleChildScrollView(
                   child: Form(
-                    key: eventProvider.formKey,
+                    key: provider.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -64,10 +54,12 @@ class CreateEventTab extends StatelessWidget {
                                 provider.changeCategory(index);
                               },
                               child: CategoryEventItem(
-                                isSelected: index == provider.currentCategoryIndex,
+                                isSelected:
+                                    index == provider.currentCategoryIndex,
                                 imageName: provider.categoryList[index],
-                                title:
-                                    provider.categoryList[index].tr().toUpperCase(),
+                                title: provider.categoryList[index]
+                                    .tr()
+                                    .toUpperCase(),
                               ),
                             ),
                           ),
@@ -86,8 +78,8 @@ class CreateEventTab extends StatelessWidget {
                           cursorColor: Theme.of(context).primaryColor,
                           style: Theme.of(context).textTheme.bodyLarge,
                           maxLines: 1,
-                          controller: eventProvider.titleController,
-                          validator: eventProvider.titleValidation,
+                          controller: provider.titleController,
+                          validator: provider.titleValidation,
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.all(24),
                               hintText: "event_title".tr(),
@@ -113,8 +105,8 @@ class CreateEventTab extends StatelessWidget {
                           cursorColor: Theme.of(context).primaryColor,
                           style: Theme.of(context).textTheme.bodyLarge,
                           maxLines: 6,
-                          controller: eventProvider.descriptionController,
-                          validator: eventProvider.descreptionValidation,
+                          controller: provider.descriptionController,
+                          validator: provider.descreptionValidation,
                           decoration: InputDecoration(
                             hintText: "event_description".tr(),
                             contentPadding: EdgeInsets.all(24),
@@ -127,8 +119,10 @@ class CreateEventTab extends StatelessWidget {
                           children: [
                             Icon(Icons.calendar_month_outlined,
                                 size: 30,
-                                color:
-                                    Theme.of(context).textTheme.bodyLarge!.color),
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color),
                             SizedBox(
                               width: 8,
                             ),
@@ -139,16 +133,19 @@ class CreateEventTab extends StatelessWidget {
                             Spacer(),
                             TextButton(
                               onPressed: () {
-                                eventProvider.chooseDate(context);
+                                provider.chooseDate(context);
                               },
                               child: Text(
-                                eventProvider.selectedDate == null ?
-                                "choose_date".tr()
-                                : DateFormat('dd/MM/yyyy').format(eventProvider.selectedDate!),
-                                style:
-                                    Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                        ),
+                                provider.selectedDate == null
+                                    ? "choose_date".tr()
+                                    : DateFormat('dd/MM/yyyy')
+                                        .format(provider.selectedDate!),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                               ),
                             ),
                           ],
@@ -160,8 +157,10 @@ class CreateEventTab extends StatelessWidget {
                           children: [
                             Icon(FontAwesomeIcons.clock,
                                 size: 30,
-                                color:
-                                    Theme.of(context).textTheme.bodyLarge!.color),
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color),
                             SizedBox(
                               width: 8,
                             ),
@@ -171,16 +170,20 @@ class CreateEventTab extends StatelessWidget {
                             ),
                             Spacer(),
                             TextButton(
-                              onPressed: (){
-                               eventProvider.chooseTime(context);
+                              onPressed: () {
+                                provider.chooseTime(context);
                               },
-                              child: Text( eventProvider.selectedTime == null ?
-                                "choose_time".tr()
-                                : eventProvider.selectedTime!.format(context),
-                                style:
-                                    Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                        ),
+                              child: Text(
+                                provider.selectedTime == null
+                                    ? "choose_time".tr()
+                                    : provider.selectedTime!
+                                        .format(context),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                               ),
                             ),
                           ],
@@ -214,8 +217,8 @@ class CreateEventTab extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Icon(Icons.my_location_sharp,
-                                    color:
-                                        Theme.of(context).scaffoldBackgroundColor),
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor),
                               ),
                               SizedBox(
                                 width: 8,
@@ -226,7 +229,8 @@ class CreateEventTab extends StatelessWidget {
                                     .textTheme
                                     .bodyLarge!
                                     .copyWith(
-                                        fontFamily: GoogleFonts.inter().fontFamily,
+                                        fontFamily:
+                                            GoogleFonts.inter().fontFamily,
                                         fontWeight: FontWeight.normal,
                                         color: Theme.of(context).primaryColor),
                               ),
@@ -243,10 +247,13 @@ class CreateEventTab extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            eventProvider.validate();
-                            eventProvider.addEvent(
-                                provider
-                                    .categoryList[provider.currentCategoryIndex], provider.categoryList[provider.currentCategoryIndex] , context);
+                            provider.validate();
+                            provider.addEvent(
+                                provider.categoryList[
+                                    provider.currentCategoryIndex],
+                                provider.categoryList[
+                                    provider.currentCategoryIndex],
+                                context);
                           },
                           child: Text("create_event".tr(),
                               style: Theme.of(context)

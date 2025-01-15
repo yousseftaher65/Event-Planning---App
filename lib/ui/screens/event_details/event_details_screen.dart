@@ -108,7 +108,7 @@ class EventDetailsScreen extends StatelessWidget {
                                       fontWeight: FontWeight.normal,
                                       color: Theme.of(context).primaryColor),
                             ),
-                            Text(arg.time.substring(10,15),
+                            Text(arg.time.format(context),
                               // DateFormat('hh:mm a').format(arg.time as DateTime),
                                 style: Theme.of(context).textTheme.bodyLarge),
                           ],

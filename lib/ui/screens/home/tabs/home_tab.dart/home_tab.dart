@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/firebase_utils/firebase_utils.dart';
 import 'package:event_planning_pojo/ui/model/event_model.dart';
-import 'package:event_planning_pojo/ui/providers/category_event_provider.dart';
+import 'package:event_planning_pojo/ui/providers/create_or_update_event_provider.dart';
 import 'package:event_planning_pojo/ui/screens/event_details/event_details_screen.dart';
 import 'package:event_planning_pojo/ui/widgets/event_card.dart';
 import 'package:event_planning_pojo/ui/widgets/home_category.dart';
@@ -17,9 +17,9 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (BuildContext context) => CategoryEventProvider(),
+        create: (BuildContext context) => CreateOrUpdateEventProvider(),
         builder: (context, child) {
-          var provider = Provider.of<CategoryEventProvider>(context);
+          var provider = Provider.of<CreateOrUpdateEventProvider>(context);
           return Scaffold(
             appBar: AppBar(
               shape: RoundedRectangleBorder(
