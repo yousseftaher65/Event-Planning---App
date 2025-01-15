@@ -10,8 +10,7 @@ class FavTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (BuildContext context) => CreateOrUpdateEventProvider(),
-        builder: (context, child) {
-          var provider = Provider.of<CreateOrUpdateEventProvider>(context);
+        child: Consumer<CreateOrUpdateEventProvider>(builder: (context, provider, child) {
         return  Scaffold(
             body: Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
@@ -45,6 +44,7 @@ class FavTab extends StatelessWidget {
               ),
             ),
           );
-        });
+        }),
+        );
   }
 }

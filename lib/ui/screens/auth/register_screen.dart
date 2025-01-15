@@ -13,107 +13,111 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => AuthValidationProvider(),
-      builder: (context, child) {
-        var provider = Provider.of<AuthValidationProvider>(context);
-        return GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              iconTheme:
-              IconThemeData(color: Theme.of(context).secondaryHeaderColor),
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              title: Text("register".tr() , style: Theme.of(context).textTheme.titleSmall,),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Form(
-                key: provider.signUpKey,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(height: 24),
-                      Column(
+      child: Consumer<AuthValidationProvider>(
+        builder: (context, provider,child) {
+            return GestureDetector(
+              onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+              child: Scaffold(
+                resizeToAvoidBottomInset: false,
+                appBar: AppBar(
+                  iconTheme: IconThemeData(
+                      color: Theme.of(context).secondaryHeaderColor),
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  title: Text(
+                    "register".tr(),
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Form(
+                    key: provider.signUpKey,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Image.asset(
-                            'assets/images/loginLogo.png',
+                          SizedBox(height: 24),
+                          Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/loginLogo.png',
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 24),
-                      InputField(
-                        controller: provider.nameController,
-                        validator: provider.validateNameText,
-                        label: "name".tr(),
-                        icon: Icons.person,
-                      ),
-                      SizedBox(height: 24),
-                      InputField(
-                        controller: provider.emailController,
-                        validator: provider.validateEmailText,
-                        label: "email".tr(),
-                        icon: Icons.person,
-                      ),
-                      SizedBox(height: 24),
-                      PasswordField(
-                        controller: provider.passwordController,
-                        validator: provider.validatePasswordText,
-                        label: "password",
-                      ),
-                      SizedBox(height: 24),
-                      PasswordField(
-                        controller: TextEditingController(),
-                        validator: provider.validateRePasswordText,
-                        label: "re_Password",
-                      ),
-                      SizedBox(height: 24),
-                      ElevatedButton(
-                        onPressed: () {
-                          provider.signUp(context);
-                        },
-                        child: Text(
-                          "create_account".tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(color: Colors.white),
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "already_have_account".tr(),
-                            style: Theme.of(context).textTheme.bodyLarge,
+                          SizedBox(height: 24),
+                          InputField(
+                            controller: provider.nameController,
+                            validator: provider.validateNameText,
+                            label: "name".tr(),
+                            icon: Icons.person,
                           ),
-                          TextButton(
+                          SizedBox(height: 24),
+                          InputField(
+                            controller: provider.emailController,
+                            validator: provider.validateEmailText,
+                            label: "email".tr(),
+                            icon: Icons.person,
+                          ),
+                          SizedBox(height: 24),
+                          PasswordField(
+                            controller: provider.passwordController,
+                            validator: provider.validatePasswordText,
+                            label: "password",
+                          ),
+                          SizedBox(height: 24),
+                          PasswordField(
+                            controller: TextEditingController(),
+                            validator: provider.validateRePasswordText,
+                            label: "re_Password",
+                          ),
+                          SizedBox(height: 24),
+                          ElevatedButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              provider.signUp(context);
                             },
                             child: Text(
-                              "login".tr(),
+                              "create_account".tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor:
-                                          Theme.of(context).primaryColor),
+                                  .titleMedium!
+                                  .copyWith(color: Colors.white),
                             ),
+                          ),
+                          SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "already_have_account".tr(),
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  "login".tr(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor:
+                                              Theme.of(context).primaryColor),
+                                ),
+                              )
+                            ],
                           )
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        );
-      },
+            );
+          },
+      )
     );
   }
 }
