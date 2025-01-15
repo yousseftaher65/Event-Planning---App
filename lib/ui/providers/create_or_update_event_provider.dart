@@ -9,9 +9,58 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final ScrollController scrollController = ScrollController();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
-  List<EventModel> events = [];
+
+  List<String> categoryList = [
+    "book_club",
+    "eating",
+    "birthday",
+    "exhibition",
+    "gaming",
+    "sport",
+    "holiday",
+    "meeting",
+    "workshop",
+  ];
+
+  final List<String> eventslist = [
+    "all",
+    "book_club",
+    "eating",
+    "birthday",
+    "exhibition",
+    "gaming",
+    "sport",
+    "holiday",
+    "meeting",
+    "workshop",
+  ];
+
+  int currentCategoryIndex = 0;
+
+  changeCategory(int index) {
+    currentCategoryIndex = index;
+    notifyListeners();
+  }
+
+  initCategory(String image) {
+    currentCategoryIndex = categoryList.indexOf(image);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Ensure the controller is attached before trying to scroll
+      if (scrollController.hasClients) {
+        // Calculate the offset for the index (assuming fixed width and separator)
+        double offset = categoryList.indexOf(image) *
+            (100 + 8); // Adjust itemWidth and separatorWidth if needed
+        scrollController.animateTo(
+          offset,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
 
   String? titleValidation(String? tilte) {
     if (tilte == null || tilte.isEmpty) {
@@ -35,29 +84,60 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
   }
 
   void addEvent(String image, String name, BuildContext context) {
+    if (selectedTime == null || selectedDate == null) {
+      Fluttertoast.showToast(
+        msg: "please_select_date_and_time".tr(),
+        toastLength: Toast.LENGTH_SHORT,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      return;
+    }
+
+    if (descreptionValidation(descriptionController.text) != null ||
+        titleValidation(titleController.text) != null) {
+      // Validation failed; exit early.
+      return;
+    }
+
+    // Validation passed; create the EventModel.
     EventModel eventModel = EventModel(
       image: image,
       name: name,
       title: titleController.text,
       description: descriptionController.text,
       date: selectedDate!,
-      time: selectedTime.toString(),
+      time: selectedTime!,
     );
 
+    // Add the event to Firebase.
     FirebaseUtils.addEvent(eventModel).then((_) {
       Navigator.pop(
         context,
         Fluttertoast.showToast(
-            msg: "event_added_successfully".tr(),
-            toastLength: Toast.LENGTH_SHORT,
-            backgroundColor: Colors.black87,
-            textColor: Colors.white,
-            fontSize: 16.0),
+          msg: "event_added_successfully".tr(),
+          toastLength: Toast.LENGTH_SHORT,
+          backgroundColor: Colors.black87,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        ),
       );
     });
   }
 
   void updateEvent(String id, String image, String name, BuildContext context) {
+    if (selectedTime == null || selectedDate == null) {
+      Fluttertoast.showToast(
+          msg: "please_select_date_and_time".tr(),
+          toastLength: Toast.LENGTH_SHORT,
+          backgroundColor: Colors.black87,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return;
+    } if (titleValidation(titleController.text) != null || descreptionValidation(descriptionController.text) != null) {
+      return;
+    }
     EventModel eventModel = EventModel(
       id: id,
       image: image,
@@ -65,22 +145,22 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
       title: titleController.text,
       description: descriptionController.text,
       date: selectedDate!,
-      time: selectedTime.toString(),
+      time: selectedTime!,
     );
-
-    FirebaseUtils.updateEvent(eventModel).then((_) {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        HomeScreen.tag,
-        (route) => false,
-      );
-      Fluttertoast.showToast(
-          msg: "event_updated_successfully".tr(),
-          toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.black87,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    });
+      FirebaseUtils.updateEvent(eventModel).then((_) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          HomeScreen.tag,
+          (route) => false,
+        );
+        Fluttertoast.showToast(
+            msg: "event_updated_successfully".tr(),
+            toastLength: Toast.LENGTH_SHORT,
+            backgroundColor: Colors.black87,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      });
+    
   }
 
   void deleteEvent(String id, BuildContext context) {
@@ -92,8 +172,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
               toastLength: Toast.LENGTH_SHORT,
               backgroundColor: Colors.black87,
               textColor: Colors.white,
-              fontSize: 16.0)
-          );
+              fontSize: 16.0));
     });
   }
 
@@ -129,6 +208,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 }

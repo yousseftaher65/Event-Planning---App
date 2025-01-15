@@ -16,7 +16,6 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
-    //var eligibility = IntroductionCache.getEligibility() ?? false;
 
     return Scaffold(
       appBar: AppBar(

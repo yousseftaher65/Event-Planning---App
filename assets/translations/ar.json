@@ -94,5 +94,7 @@
     "loading" : "جار التحميل...",
     "no_events_found" : "لا يوجد فعاليات",
     "no_favourite_events_found" : "لا يوجد فعاليات مفضلة",
-    "user" : "مستخدم"
+    "user" : "مستخدم",
+    "this_field_is_required" : "هذا الحقل مطلوب.",
+    "please_select_date_and_time" : "يرجى تحديد التاريخ والوقت."
 }
