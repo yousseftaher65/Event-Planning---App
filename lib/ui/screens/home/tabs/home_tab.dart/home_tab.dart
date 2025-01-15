@@ -4,13 +4,12 @@ import 'package:event_planning_pojo/ui/firebase_utils/firebase_utils.dart';
 import 'package:event_planning_pojo/ui/model/event_model.dart';
 import 'package:event_planning_pojo/ui/providers/category_event_provider.dart';
 import 'package:event_planning_pojo/ui/screens/event_details/event_details_screen.dart';
-import 'package:event_planning_pojo/ui/widgets/category_event_item.dart';
 import 'package:event_planning_pojo/ui/widgets/event_card.dart';
+import 'package:event_planning_pojo/ui/widgets/home_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeTab extends StatelessWidget {
-  static const String tag = 'home_tab';
   final String? userName;
  const HomeTab({super.key, required this.userName});
 
@@ -42,7 +41,7 @@ class HomeTab extends StatelessWidget {
                         fontSize: 14),
                   ),
                   Text(
-                    userName ?? 'User',
+                    userName ?? "user".tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context)
@@ -96,11 +95,11 @@ class HomeTab extends StatelessWidget {
                           separatorBuilder: (context, index) =>
                               SizedBox(width: 8),
                           itemCount: provider.eventslist.length,
-                          itemBuilder: (context, index) => InkWell(
+                          itemBuilder: (context, index) => GestureDetector(
                           onTap: () {
                             provider.changeCategory(index);
                           },
-                          child: CategoryEventItem(
+                          child: HomeCategory(
                             isSelected: index == provider.currentCategoryIndex,
                             imageName: provider.eventslist[index],
                             title:
@@ -148,8 +147,8 @@ class HomeTab extends StatelessWidget {
                   );
                 } else {
                   return Center(
-                      child: Text("No data available",
-                              style: Theme.of(context).textTheme.titleMedium).tr());
+                      child: Text("no_events_found".tr(),
+                              style: Theme.of(context).textTheme.titleMedium));
                 }
               },
             ),

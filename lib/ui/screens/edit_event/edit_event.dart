@@ -62,7 +62,7 @@ class EditEvent extends StatelessWidget {
                                   SizedBox(width: 8),
                               itemCount: provider.categoryList.length,
                               itemBuilder: (context, index) {
-                                return InkWell(
+                                return GestureDetector(
                                   onTap: () {
                                     provider.changeCategory(index);
                                   },
@@ -88,19 +88,15 @@ class EditEvent extends StatelessWidget {
                           cursorColor: Theme.of(context).primaryColor,
                           style: Theme.of(context).textTheme.bodyLarge,
                           maxLines: 1,
-                          controller: editEventProvider.titleController
-                            ..text = args.title,
+                          controller: editEventProvider.titleController,
                           validator: editEventProvider.titleValidation,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(24),
                             hintText: args.title,
-                            hintStyle: Theme.of(context).textTheme.bodyLarge,
-                            labelText: "event_title".tr(),
-                            labelStyle: Theme.of(context).textTheme.bodyLarge,
                             prefixIcon: Icon(
                               FontAwesomeIcons.penToSquare,
                               color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
+                                  Theme.of(context).inputDecorationTheme.hintStyle!.color,
                             ),
                           ),
                         ),
@@ -118,14 +114,11 @@ class EditEvent extends StatelessWidget {
                           cursorColor: Theme.of(context).primaryColor,
                           style: Theme.of(context).textTheme.bodyLarge,
                           maxLines: 6,
-                          controller: editEventProvider.descriptionController
-                            ..text = args.description,
+                          controller: editEventProvider.descriptionController,
                           validator: editEventProvider.descreptionValidation,
                           decoration: InputDecoration(
-                            labelText: "description".tr(),
-                            labelStyle: Theme.of(context).textTheme.bodyLarge,
+                            hintText: args.description,
                             contentPadding: EdgeInsets.all(24),
-                            alignLabelWithHint: true,
                           ),
                         ),
                         SizedBox(

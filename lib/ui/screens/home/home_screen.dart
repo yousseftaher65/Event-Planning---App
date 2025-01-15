@@ -47,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Icon(
           Icons.add,
           size: 30,
-          color: Theme.of(context).scaffoldBackgroundColor,
         ),
       ),
       //extendBody: true,

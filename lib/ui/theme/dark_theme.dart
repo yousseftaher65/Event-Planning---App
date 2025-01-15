@@ -32,17 +32,17 @@ class DarkTheme extends BaseTheme {
 
   @override
   ThemeData get themeData => ThemeData(
+        unselectedWidgetColor: primaryColor,
+        splashColor: accentColor,
         secondaryHeaderColor: primaryColor,
         indicatorColor: accentColor,
         primaryColor: primaryColor,
         scaffoldBackgroundColor: backgroundColor,
         floatingActionButtonTheme: FloatingActionButtonThemeData(
+          foregroundColor: accentColor,
           elevation: 0,
           shape: CircleBorder(
-            side: BorderSide(
-              color: accentColor,
-              width: 4,
-            ),
+            side: BorderSide.none,
           ),
           backgroundColor: primaryColor,
         ),
@@ -56,14 +56,6 @@ class DarkTheme extends BaseTheme {
               color: primaryColor),
           backgroundColor: backgroundColor,
           centerTitle: true,
-        ),
-        bottomAppBarTheme: BottomAppBarTheme(
-          height: 60,
-          color: secondaryColor,
-          elevation: 0,
-          padding: EdgeInsets.zero,
-          shape: CircularNotchedRectangle(),
-          surfaceTintColor: Colors.transparent,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           elevation: 0,
@@ -138,6 +130,7 @@ class DarkTheme extends BaseTheme {
           ),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          hintStyle: TextStyle(color: accentColor),
           labelStyle: TextStyle(color: borderColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),

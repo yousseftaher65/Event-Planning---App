@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
-  static const String tag = 'profile_tab';
   final String? userName;
   final String? userEmail;
   const ProfileTab({super.key , required this.userName, required this.userEmail});
@@ -43,7 +42,7 @@ class ProfileTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    userName ?? 'User',
+                    userName ?? "user".tr(),
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
@@ -51,7 +50,7 @@ class ProfileTab extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    userEmail ?? 'User',
+                    userEmail ?? "user".tr(),
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontFamily: GoogleFonts.inter().fontFamily,
                         fontWeight: FontWeight.normal,

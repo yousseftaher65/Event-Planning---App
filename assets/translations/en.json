@@ -85,5 +85,14 @@
     "cancel": "Cancel",
     "yes": "Yes",
     "no": "No",
-    "all":"All"
+    "all":"All",
+    "event_added_successfully": "Event added successfully.",
+    "event_updated_successfully": "Event updated successfully.",
+    "event_deleted_successfully": "Event deleted successfully.",
+    "event_favourite_successfully": "Event added to favourite successfully.",
+    "event_unfavourite_successfully": "Event removed from favourite successfully.",
+    "loading" : "Loading...",
+    "no_events_found" : "No events found.",
+    "no_favourite_events_found" : "No favourite events found.",
+    "user" : "User"
 }

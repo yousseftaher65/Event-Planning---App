@@ -3,6 +3,7 @@ import 'package:event_planning_pojo/ui/firebase_utils/firebase_utils.dart';
 import 'package:event_planning_pojo/ui/model/event_model.dart';
 import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CreateOrUpdateEventProvider extends ChangeNotifier {
   final TextEditingController titleController = TextEditingController();
@@ -43,16 +44,15 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
       time: selectedTime.toString(),
     );
 
-    FirebaseUtils.addEvent(eventModel).timeout(Duration(milliseconds: 500),
-        onTimeout: () {
+    FirebaseUtils.addEvent(eventModel).then((_) {
       Navigator.pop(
         context,
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("event_added_successfully".tr()),
-            duration: Duration(seconds: 3),
-          ),
-        ),
+        Fluttertoast.showToast(
+            msg: "event_added_successfully".tr(),
+            toastLength: Toast.LENGTH_SHORT,
+            backgroundColor: Colors.black87,
+            textColor: Colors.white,
+            fontSize: 16.0),
       );
     });
   }
@@ -68,48 +68,34 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
       time: selectedTime.toString(),
     );
 
-    FirebaseUtils.updateEvent(eventModel).timeout(Duration(milliseconds: 500),
-        onTimeout: () {
+    FirebaseUtils.updateEvent(eventModel).then((_) {
       Navigator.pushNamedAndRemoveUntil(
         context,
         HomeScreen.tag,
         (route) => false,
       );
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("event_updated_successfully".tr()),
-          duration: Duration(seconds: 3),
-        ),
-      );
+      Fluttertoast.showToast(
+          msg: "event_updated_successfully".tr(),
+          toastLength: Toast.LENGTH_SHORT,
+          backgroundColor: Colors.black87,
+          textColor: Colors.white,
+          fontSize: 16.0);
     });
   }
 
   void deleteEvent(String id, BuildContext context) {
-    FirebaseUtils.deleteEvent(id).timeout(Duration(milliseconds: 500),
-        onTimeout: () {
+    FirebaseUtils.deleteEvent(id).then((_) {
       Navigator.pop(
-        context,
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("event_deleted_successfully".tr()),
-            duration: Duration(seconds: 3),
-          ),
-        ),
-      );
+          context,
+          Fluttertoast.showToast(
+              msg: "event_deleted_successfully".tr(),
+              toastLength: Toast.LENGTH_SHORT,
+              backgroundColor: Colors.black87,
+              textColor: Colors.white,
+              fontSize: 16.0)
+          );
     });
   }
-
-  // Future<void> getEvents() async {
-  //   try {
-  //     FirebaseUtils.getEvent().listen((QuerySnapshot<EventModel> snapshot) {
-  //       events = snapshot.docs.map((doc) => doc.data()).toList();
-  //       notifyListeners();
-  //     });
-  //   } catch (e) {
-  //     // Handle error
-  //     print("Error fetching events: $e");
-  //   }
-  // }
 
   void chooseDate(BuildContext context) async {
     var selectDate = await showDatePicker(
