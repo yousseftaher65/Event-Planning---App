@@ -52,6 +52,7 @@ class EditEvent extends StatelessWidget {
                     SizedBox(
                       height: 40,
                       child: ListView.separated(
+                          controller: provider.scrollController,
                           scrollDirection: Axis.horizontal,
                           separatorBuilder: (context, index) =>
                               SizedBox(width: 8),

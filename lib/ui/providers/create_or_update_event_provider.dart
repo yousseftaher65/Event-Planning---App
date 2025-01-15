@@ -9,6 +9,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final ScrollController scrollController = ScrollController();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
 
@@ -46,6 +47,19 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
 
   initCategory(String image) {
     currentCategoryIndex = categoryList.indexOf(image);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Ensure the controller is attached before trying to scroll
+      if (scrollController.hasClients) {
+        // Calculate the offset for the index (assuming fixed width and separator)
+        double offset =
+            categoryList.indexOf(image) * (100 + 8); // Adjust itemWidth and separatorWidth if needed
+        scrollController.animateTo(
+          offset,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
   }
 
   String? titleValidation(String? tilte) {
@@ -163,6 +177,7 @@ class CreateOrUpdateEventProvider extends ChangeNotifier {
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 }
