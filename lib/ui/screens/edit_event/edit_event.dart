@@ -62,7 +62,7 @@ class EditEvent extends StatelessWidget {
                                   SizedBox(width: 8),
                               itemCount: provider.categoryList.length,
                               itemBuilder: (context, index) {
-                                return InkWell(
+                                return GestureDetector(
                                   onTap: () {
                                     provider.changeCategory(index);
                                   },
