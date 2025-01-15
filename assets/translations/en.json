@@ -94,5 +94,7 @@
     "loading" : "Loading...",
     "no_events_found" : "No events found.",
     "no_favourite_events_found" : "No favourite events found.",
-    "user" : "User"
+    "user" : "User",
+    "this_field_is_required" : "This field is required.",
+    "please_select_date_and_time" : "Please select date and time."
 }

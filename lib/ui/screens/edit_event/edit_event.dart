@@ -24,7 +24,7 @@ class EditEvent extends StatelessWidget {
     }, builder: (context, child) {
       var provider = Provider.of<CreateOrUpdateEventProvider>(context);
       return GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
           appBar: AppBar(
             title: Text(
@@ -138,6 +138,7 @@ class EditEvent extends StatelessWidget {
                         Spacer(),
                         TextButton(
                           onPressed: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
                             provider.chooseDate(context);
                           },
                           child: Text(
@@ -172,6 +173,7 @@ class EditEvent extends StatelessWidget {
                         Spacer(),
                         TextButton(
                           onPressed: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
                             provider.chooseTime(context);
                           },
                           child: Text(

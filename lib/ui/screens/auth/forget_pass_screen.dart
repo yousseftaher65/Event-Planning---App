@@ -15,7 +15,7 @@ class ForgetPassScreen extends StatelessWidget {
       builder: (context, child) {
         var provider = Provider.of<AuthValidationProvider>(context);
         return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(

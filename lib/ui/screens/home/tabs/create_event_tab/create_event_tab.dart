@@ -17,7 +17,7 @@ class CreateEventTab extends StatelessWidget {
         builder: (context, child) {
           var provider = Provider.of<CreateOrUpdateEventProvider>(context);
           return GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -49,7 +49,7 @@ class CreateEventTab extends StatelessWidget {
                             separatorBuilder: (context, index) =>
                                 SizedBox(width: 8),
                             itemCount: provider.categoryList.length,
-                            itemBuilder: (context, index) => InkWell(
+                            itemBuilder: (context, index) => GestureDetector(
                               onTap: () {
                                 provider.changeCategory(index);
                               },
@@ -133,6 +133,7 @@ class CreateEventTab extends StatelessWidget {
                             Spacer(),
                             TextButton(
                               onPressed: () {
+                                FocusManager.instance.primaryFocus?.unfocus();
                                 provider.chooseDate(context);
                               },
                               child: Text(
@@ -171,6 +172,7 @@ class CreateEventTab extends StatelessWidget {
                             Spacer(),
                             TextButton(
                               onPressed: () {
+                                FocusManager.instance.primaryFocus?.unfocus();
                                 provider.chooseTime(context);
                               },
                               child: Text(

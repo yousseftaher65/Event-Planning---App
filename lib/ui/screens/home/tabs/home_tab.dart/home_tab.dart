@@ -130,7 +130,7 @@ class HomeTab extends StatelessWidget {
                                 SizedBox(height: 16),
                             itemCount: snapshot.data?.docs.length ?? 0,
                             itemBuilder: (context, index) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
                                       context, EventDetailsScreen.tag , arguments: snapshot.data!.docs[index].data());
