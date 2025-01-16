@@ -112,12 +112,13 @@ class HomeTab extends StatelessWidget {
             ),
           ),
           body: StreamBuilder<QuerySnapshot<EventModel>>(
-            stream: FirebaseUtils.getEvent(),
+            stream: FirebaseUtils.getEvent(category: provider.eventslist[provider.currentCategoryIndex] == 'all' ? null : provider.eventslist[provider.currentCategoryIndex]),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
+                return Center(child: Text('Error: ${snapshot.error}' ,
+                        style: Theme.of(context).textTheme.bodyLarge));
               } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),

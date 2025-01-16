@@ -6,7 +6,8 @@ class FirebaseUtils {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   static CollectionReference<EventModel> getEventsCollection() {
-    return firestore.collection('users')
+    return firestore
+        .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection(EventModel.collectionName)
         .withConverter<EventModel>(
@@ -21,22 +22,22 @@ class FirebaseUtils {
     return getEventsCollection().doc(collection).set(event);
   }
 
-  static Stream<QuerySnapshot<EventModel>> getFilteredEvents() {
-    var collection =
-        getEventsCollection().where(Object(), ).snapshots();
-    return collection;
-  }
-
   static Stream<QuerySnapshot<EventModel>> getFavouriteEvent() {
     var collection =
         getEventsCollection().where('isfavorite', isEqualTo: true).snapshots();
     return collection;
   }
 
-  static Stream<QuerySnapshot<EventModel>> getEvent() {
-    var collection =
-        getEventsCollection().orderBy('date', descending: false).snapshots();
-    return collection;
+  static Stream<QuerySnapshot<EventModel>> getEvent({String? category}) {
+    var collection = getEventsCollection();
+    if (category != null) {
+      // Add a 'where' clause for filtering by category
+      return collection
+          .where('name', isEqualTo: category)
+          .orderBy('date', descending: false)
+          .snapshots();
+    }
+    return collection.orderBy('date', descending: false).snapshots();
   }
 
   static Future<void> deleteEvent(String id) async {
@@ -45,7 +46,8 @@ class FirebaseUtils {
   }
 
   static Future<void> updateEvent(EventModel event) async {
-    var collection = getEventsCollection().doc(event.id).update(event.toFirestore());
+    var collection =
+        getEventsCollection().doc(event.id).update(event.toFirestore());
     return collection;
   }
 }
