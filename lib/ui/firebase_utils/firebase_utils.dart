@@ -22,9 +22,13 @@ class FirebaseUtils {
     return getEventsCollection().doc(collection).set(event);
   }
 
-  static Stream<QuerySnapshot<EventModel>> getFavouriteEvent() {
-    var collection =
-        getEventsCollection().where('isfavorite', isEqualTo: true).snapshots();
+  static Stream<QuerySnapshot<EventModel>> getFavoriteEvent() {
+    var collection = getEventsCollection().where('isfavorite', isEqualTo: true).snapshots();
+    return collection;
+  }
+
+  static toggelFavorite(String id, bool isfavorite) async {
+    var collection = getEventsCollection().doc(id).update({'isfavorite': isfavorite});
     return collection;
   }
 

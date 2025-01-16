@@ -1,12 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/ui/firebase_utils/firebase_utils.dart';
 import 'package:event_planning_pojo/ui/model/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EventCard extends StatelessWidget {
+class EventCard extends StatefulWidget {
   final EventModel model;
-  const EventCard({super.key, required this.model,});
+  const EventCard({
+    super.key,
+    required this.model,
+  });
 
+  @override
+  State<EventCard> createState() => _EventCardState();
+}
+
+class _EventCardState extends State<EventCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -26,7 +35,7 @@ class EventCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.asset('assets/images/${model.image}.png'),
+                  child: Image.asset('assets/images/${widget.model.image}.png'),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -41,7 +50,7 @@ class EventCard extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            model.title,
+                            widget.model.title,
                             softWrap: true,
                             style: Theme.of(context)
                                 .textTheme
@@ -53,10 +62,24 @@ class EventCard extends StatelessWidget {
                                 ),
                           ),
                           Spacer(),
-                          ImageIcon(
-                            color: Theme.of(context).primaryColor,
-                            AssetImage('assets/icons/favIcon2.png'),
-                          )
+                          GestureDetector(
+                              onTap: () async {
+                                bool favorite = !widget.model.isfavorite;
+                                await FirebaseUtils.toggelFavorite(
+                                    widget.model.id, favorite);
+
+                                if (mounted) {
+                                  setState(() {
+                                    widget.model.isfavorite = favorite;
+                                  });
+                                }
+                              },
+                              child: Image.asset(
+                                !widget.model.isfavorite
+                                    ? 'assets/icons/favIcon.png'
+                                    : 'assets/icons/favIcon2.png',
+                                color: Theme.of(context).primaryColor,
+                              ))
                         ],
                       ),
                     ),
@@ -75,7 +98,7 @@ class EventCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    model.date.day.toString(),
+                    widget.model.date.day.toString(),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontFamily: GoogleFonts.inter().fontFamily,
                           fontWeight: FontWeight.bold,
@@ -84,7 +107,7 @@ class EventCard extends StatelessWidget {
                         ),
                   ),
                   Text(
-                    DateFormat('MMM').format(model.date).toUpperCase(),
+                    DateFormat('MMM').format(widget.model.date).toUpperCase(),
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontFamily: GoogleFonts.inter().fontFamily,
                           fontWeight: FontWeight.bold,
@@ -100,4 +123,9 @@ class EventCard extends StatelessWidget {
       ),
     );
   }
+
+  /* @override
+  void dispose() {
+    super.dispose();
+  } */
 }
