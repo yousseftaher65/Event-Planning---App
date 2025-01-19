@@ -90,6 +90,9 @@ class AuthValidationProvider extends ChangeNotifier {
   Future<void> signInWithGoogle(BuildContext context) async {
     await authService.signInWithGoogle(context);
   }
+  Future<void> signInWithFacebook(BuildContext context) async {
+    await authService.signInWithFacebook(context);
+  }
 
   Future<void> signOut(BuildContext context) async {
     await authService.signOut(context);
