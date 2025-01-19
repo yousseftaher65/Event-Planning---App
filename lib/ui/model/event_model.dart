@@ -34,7 +34,7 @@ class EventModel {
         date: DateTime.fromMillisecondsSinceEpoch(snapshot['date']),
         time: convertMinutesToTimeOfDay(snapshot['time']),
         location: snapshot['location'],
-        isfavorite: snapshot['isfavorite'],
+        isfavorite: snapshot['isfavorite'] as bool,
       );
 
       int convertTimeOfDayToMinutes(TimeOfDay time) {

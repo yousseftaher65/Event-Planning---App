@@ -38,7 +38,7 @@ class _BottomNavState extends State<BottomNav> {
         ),
         BottomNavigationBarItem(
           icon: _buildNavItem('fav', 2, context),
-          label: "favourite".tr(),
+          label: "favorite".tr(),
         ),
         BottomNavigationBarItem(
           icon: _buildNavItem('profile', 3, context),

@@ -2,25 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_planning_pojo/ui/firebase_utils/firebase_utils.dart';
 import 'package:event_planning_pojo/ui/model/event_model.dart';
+import 'package:event_planning_pojo/ui/model/user_model.dart';
 import 'package:event_planning_pojo/ui/providers/create_or_update_event_provider.dart';
 import 'package:event_planning_pojo/ui/screens/event_details/event_details_screen.dart';
+import 'package:event_planning_pojo/ui/services/auth_service.dart';
 import 'package:event_planning_pojo/ui/widgets/event_card.dart';
 import 'package:event_planning_pojo/ui/widgets/home_category.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeTab extends StatelessWidget {
-  final String? userName;
- const HomeTab({super.key, required this.userName});
-
+  const HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (BuildContext context) => CreateOrUpdateEventProvider(),
-        child: Consumer<CreateOrUpdateEventProvider>(
-        builder: (context, provider, child) {
-        var provider = Provider.of<CreateOrUpdateEventProvider>(context);
+      create: (context) => CreateOrUpdateEventProvider(),
+      child: Consumer<CreateOrUpdateEventProvider>(
+          builder: (context, provider,child) {
         return Scaffold(
           appBar: AppBar(
             shape: RoundedRectangleBorder(
@@ -41,15 +41,21 @@ class HomeTab extends StatelessWidget {
                           .selectedItemColor,
                       fontSize: 14),
                 ),
-                Text(
-                  userName ?? "user".tr(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .selectedItemColor,
-                    fontSize: 24,
-                  ),
+                FutureBuilder<UserModel?>(
+                  future: AuthService.readUser(
+                      FirebaseAuth.instance.currentUser!.uid),
+                  builder: (context, snapshot) {
+                    return Text(
+                      snapshot.data?.name ?? "user".tr(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedItemColor,
+                        fontSize: 24,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -112,12 +118,18 @@ class HomeTab extends StatelessWidget {
             ),
           ),
           body: StreamBuilder<QuerySnapshot<EventModel>>(
-            stream: FirebaseUtils.getEvent(),
+            stream: FirebaseUtils.getEvent(
+                category:
+                    provider.eventslist[provider.currentCategoryIndex] == 'all'
+                        ? null
+                        : provider.eventslist[provider.currentCategoryIndex]),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
+                return Center(
+                    child: Text('Error: ${snapshot.error}',
+                        style: Theme.of(context).textTheme.bodyLarge));
               } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
@@ -154,8 +166,7 @@ class HomeTab extends StatelessWidget {
             },
           ),
         );
-      }
-        ),
-        );
+      }),
+    );
   }
 }

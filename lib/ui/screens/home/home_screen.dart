@@ -8,35 +8,23 @@ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   static const tag = 'HomeScreen';
-  const HomeScreen({
-    super.key,
-  });
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 int currentIndex = 0;
-String? _userName;
-String? _userEmail;
-
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
- 
   void dispose() {
     currentIndex = 0;
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    final arguments =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    if (arguments != null) {
-      _userName = arguments['name'];
-      _userEmail = arguments['email'];
-    }
-
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -49,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
           size: 30,
         ),
       ),
-      //extendBody: true,
       body: tabs[currentIndex],
       bottomNavigationBar: BottomNav(
         callBack: (index) {
@@ -62,9 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final List<Widget> tabs = [
-    HomeTab(userName: _userName),
+    HomeTab(),
     MapTab(),
     FavTab(),
-    ProfileTab(userName: _userName, userEmail: _userEmail),
+    ProfileTab(),
   ];
 }
