@@ -1,15 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:event_planning_pojo/ui/screens/auth/login_screen.dart';
+import 'package:event_planning_pojo/ui/model/user_model.dart';
 import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
 import 'package:event_planning_pojo/ui/widgets/alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-//import 'package:flutter/material.dart';
 
 class AuthService {
+  static CollectionReference<UserModel> getUserCollection() {
+    return FirebaseFirestore.instance
+        .collection(UserModel.collectionName)
+        .withConverter<UserModel>(
+          fromFirestore: (snapshot, _) {
+            return UserModel.fromFirestore(snapshot.data()!);
+          },
+          toFirestore: (user, _) => user.toFirestore(),
+        );
+  }
+
+  static Future<void> addUser(UserModel user) {
+    var collection = getUserCollection().doc(user.id).set(user);
+    return collection;
+  }
+
+  static Future<UserModel?> readUser(String id) async {
+    DocumentSnapshot<UserModel> doc = await getUserCollection().doc(id).get();
+    return doc.data();
+  }
+
   Future<void> signUp({
     required String email,
     required String password,
@@ -17,9 +37,9 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
+       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-
+          
       await Future.delayed(Duration(seconds: 1), () {
         Navigator.pop(
           context,
@@ -32,17 +52,7 @@ class AuthService {
         );
       });
 
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(userCredential.user!.uid)
-          .set({
-        "name": name,
-        "email": email,
-      });
-
-      // DialogUtils.hideLoding(context);
     } on FirebaseAuthException catch (e) {
-      // DialogUtils.hideLoding(context);
       String errorMessage = '';
       if (e.code == 'email-already-in-use') {
         errorMessage = ("something_went_wrong");
@@ -69,23 +79,13 @@ class AuthService {
     try {
       DialogUtils.showLoding(context, "loading".tr());
 
-      UserCredential userCredential = await FirebaseAuth.instance
+       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-
-      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(userCredential.user!.uid)
-          .get();
-
-      final String userName = documentSnapshot.get('name');
-      final String userEmail = documentSnapshot.get('email');
-
       await Future.delayed(Duration(seconds: 1));
       Navigator.pushNamedAndRemoveUntil(
         context,
         HomeScreen.tag,
         (route) => false,
-        arguments: {'name': userName, 'email': userEmail},
       );
     } on FirebaseAuthException catch (e) {
       DialogUtils.hideLoding(context);
@@ -120,7 +120,7 @@ class AuthService {
       if (googleUser == null) {
         return; // The user canceled the sign-in
       }
-      DialogUtils.showLoding(context,  "loading".tr());
+      DialogUtils.showLoding(context, "loading".tr());
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
@@ -134,20 +134,19 @@ class AuthService {
       // Once signed in, return the UserCredential
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      final User? user = userCredential.user;
 
-      if (user != null) {
-        String name = user.displayName ?? '';
-        String email = user.email ?? '';
+      if (userCredential.user != null) {
+        UserModel userModel = UserModel(
+            email: userCredential.user!.email??"",
+            name: userCredential.user!.displayName ?? "",
+            image: userCredential.user!.photoURL ?? "",
+            id: userCredential.user!.uid);
+        AuthService.addUser(userModel);
         await Future.delayed(Duration(milliseconds: 1750), () {
           Navigator.pushNamedAndRemoveUntil(
             context,
             HomeScreen.tag,
             (route) => false,
-            arguments: {
-              'name': name,
-              'email': email,
-            },
           );
         });
       }
@@ -166,13 +165,6 @@ class AuthService {
     GoogleSignIn googleSignOut = GoogleSignIn();
     googleSignOut.disconnect();
     await FirebaseAuth.instance.signOut();
-    await Future.delayed(Duration(seconds: 1), () {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        LoginScreen.tag,
-        (route) => false,
-      );
-    });
   }
 
   void snack(String message, BuildContext context) {

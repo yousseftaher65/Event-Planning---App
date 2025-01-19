@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_planning_pojo/ui/model/user_model.dart';
 import 'package:event_planning_pojo/ui/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthValidationProvider extends ChangeNotifier {
@@ -12,9 +14,7 @@ class AuthValidationProvider extends ChangeNotifier {
   TextEditingController nameController = TextEditingController();
   final signUpKey = GlobalKey<FormState>();
   final signInKey = GlobalKey<FormState>();
-
   AuthService authService = AuthService();
-
 
   String? validateEmailText(email) {
     if (email == null || email.isEmpty) {
@@ -56,8 +56,6 @@ class AuthValidationProvider extends ChangeNotifier {
     return null;
   }
 
-  
-
   Future<void> signUp(BuildContext context) async {
     if (signUpKey.currentState?.validate() ?? false) {
       await authService.signUp(
@@ -67,7 +65,14 @@ class AuthValidationProvider extends ChangeNotifier {
         name: nameController.text,
       );
     }
-     notifyListeners();
+
+    UserModel userModel = UserModel(
+        email: emailController.text,
+        name: nameController.text,
+        id: FirebaseAuth.instance.currentUser!.uid);
+
+    AuthService.addUser(userModel);
+    notifyListeners();
   }
 
   Future<void> signIn(BuildContext context) async {
@@ -78,7 +83,8 @@ class AuthValidationProvider extends ChangeNotifier {
         password: passwordController.text,
       );
     }
-     notifyListeners();
+
+    notifyListeners();
   }
 
   Future<void> signInWithGoogle(BuildContext context) async {
