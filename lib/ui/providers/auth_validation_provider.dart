@@ -14,6 +14,7 @@ class AuthValidationProvider extends ChangeNotifier {
   TextEditingController nameController = TextEditingController();
   final signUpKey = GlobalKey<FormState>();
   final signInKey = GlobalKey<FormState>();
+  final resetPasswordKey = GlobalKey<FormState>();
   AuthService authService = AuthService();
 
   String? validateEmailText(email) {
@@ -87,9 +88,17 @@ class AuthValidationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> resetPassword(BuildContext context) async {
+    if (resetPasswordKey.currentState?.validate() ?? false) {
+      await authService.resetPassword(emailController.text);
+    }
+        notifyListeners();
+  }
+
   Future<void> signInWithGoogle(BuildContext context) async {
     await authService.signInWithGoogle(context);
   }
+
   Future<void> signInWithFacebook(BuildContext context) async {
     await authService.signInWithFacebook(context);
   }

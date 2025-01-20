@@ -44,13 +44,8 @@ class AuthService {
       await Future.delayed(Duration(seconds: 1), () {
         Navigator.pop(
           context,
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Account created successfully'),
-              duration: Duration(seconds: 3),
-            ),
-          ),
         );
+        snack("account_created", context);
       });
     } on FirebaseAuthException catch (e) {
       String errorMessage = '';
@@ -161,14 +156,14 @@ class AuthService {
     }
   }
 
+  Future<void> resetPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    }
+
   Future<UserCredential> signInWithFacebook(BuildContext context) async {
     // Trigger the sign-in flow
     try {
       final LoginResult loginResult = await FacebookAuth.instance.login();
-
-      // Create a credential from the access token
-      final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
 
       if (loginResult.status == LoginStatus.cancelled) {
         return Future.error("something_went_wrong");
@@ -178,6 +173,9 @@ class AuthService {
       if (loginResult.status == LoginStatus.failed) {
         return Future.error("something_went_wrong");
       }
+      // Create a credential from the access token
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
 
       UserCredential user = await FirebaseAuth.instance
           .signInWithCredential(facebookAuthCredential);
@@ -188,8 +186,8 @@ class AuthService {
             name: user.user?.displayName ?? "",
             image: user.user?.photoURL ?? "",
             id: user.user?.uid);
-        AuthService.addUser(userModel);
-        await Future.delayed(Duration(milliseconds: 1750), () {
+        await AuthService.addUser(userModel);
+        Future.delayed(Duration(milliseconds: 1750), () {
           Navigator.pushNamedAndRemoveUntil(
             context,
             HomeScreen.tag,
@@ -212,9 +210,27 @@ class AuthService {
   }
 
   Future<void> signOut(BuildContext context) async {
-    GoogleSignIn googleSignOut = GoogleSignIn();
-    googleSignOut.disconnect();
-    await FirebaseAuth.instance.signOut();
+    // GoogleSignIn googleSignOut = GoogleSignIn();
+    // googleSignOut.disconnect();
+    // await FirebaseAuth.instance.signOut();
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+
+    if (user != null) {
+      for (var provider in user.providerData) {
+        if (provider.providerId == 'google.com') {
+          // Google sign-out
+          GoogleSignIn googleSignOut = GoogleSignIn();
+          await googleSignOut.disconnect();
+        } else if (provider.providerId == 'facebook.com') {
+          // Facebook sign-out
+          await FacebookAuth.instance.logOut();
+        }
+      }
+    }
+
+    // Sign out from Firebase (common for all providers)
+    await auth.signOut();
   }
 
   void snack(String message, BuildContext context) {

@@ -27,38 +27,43 @@ class ForgetPassScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Image.asset(
-                    'assets/images/forgBg.png',
-                    width: double.infinity,
-                    fit: BoxFit.fill,
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  InputField(
-                    controller: provider.emailController,
-                    validator: provider.validateEmailText,
-                    label: "email".tr(),
-                    icon: Icons.email_rounded,
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "reset_password".tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(color: Colors.white),
-                      ))
-                ],
+            body: Form(
+              key: provider.resetPasswordKey,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Image.asset(
+                      'assets/images/forgBg.png',
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    InputField(
+                      controller: provider.emailController,
+                      validator: provider.validateEmailText,
+                      label: "email".tr(),
+                      icon: Icons.email_rounded,
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          provider.resetPassword(context);
+                        },
+                        child: Text(
+                          "reset_password".tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: Colors.white),
+                        ))
+                  ],
+                ),
               ),
             ),
           ),
