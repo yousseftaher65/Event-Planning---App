@@ -96,5 +96,6 @@
     "no_favorite_events_found" : "لا يوجد فعاليات مفضلة",
     "user" : "مستخدم",
     "this_field_is_required" : "هذا الحقل مطلوب.",
-    "please_select_date_and_time" : "يرجى تحديد التاريخ والوقت."
+    "please_select_date_and_time" : "يرجى تحديد التاريخ والوقت.",
+    "login_with_facebook" : "تسجيل الدخول باستخدام الفيسبوك"
 }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_planning_pojo/ui/model/event_model.dart';
+import 'package:event_planning_pojo/ui/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseUtils {
@@ -7,7 +8,7 @@ class FirebaseUtils {
 
   static CollectionReference<EventModel> getEventsCollection() {
     return firestore
-        .collection('users')
+        .collection(UserModel.collectionName)
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection(EventModel.collectionName)
         .withConverter<EventModel>(

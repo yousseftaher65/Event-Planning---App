@@ -5,6 +5,7 @@ import 'package:event_planning_pojo/ui/screens/home/home_screen.dart';
 import 'package:event_planning_pojo/ui/widgets/alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -37,21 +38,15 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
-       await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-          
+
       await Future.delayed(Duration(seconds: 1), () {
         Navigator.pop(
           context,
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Account created successfully'),
-              duration: Duration(seconds: 3),
-            ),
-          ),
         );
+        snack("account_created", context);
       });
-
     } on FirebaseAuthException catch (e) {
       String errorMessage = '';
       if (e.code == 'email-already-in-use') {
@@ -79,7 +74,7 @@ class AuthService {
     try {
       DialogUtils.showLoding(context, "loading".tr());
 
-       await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       await Future.delayed(Duration(seconds: 1));
       Navigator.pushNamedAndRemoveUntil(
@@ -137,7 +132,7 @@ class AuthService {
 
       if (userCredential.user != null) {
         UserModel userModel = UserModel(
-            email: userCredential.user!.email??"",
+            email: userCredential.user!.email ?? "",
             name: userCredential.user!.displayName ?? "",
             image: userCredential.user!.photoURL ?? "",
             id: userCredential.user!.uid);
@@ -161,10 +156,81 @@ class AuthService {
     }
   }
 
+  Future<void> resetPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    }
+
+  Future<UserCredential> signInWithFacebook(BuildContext context) async {
+    // Trigger the sign-in flow
+    try {
+      final LoginResult loginResult = await FacebookAuth.instance.login();
+
+      if (loginResult.status == LoginStatus.cancelled) {
+        return Future.error("something_went_wrong");
+      }
+      DialogUtils.showLoding(context, "loading".tr());
+
+      if (loginResult.status == LoginStatus.failed) {
+        return Future.error("something_went_wrong");
+      }
+      // Create a credential from the access token
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+
+      UserCredential user = await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
+
+      if (user.user != null) {
+        UserModel userModel = UserModel(
+            email: user.user?.email ?? "",
+            name: user.user?.displayName ?? "",
+            image: user.user?.photoURL ?? "",
+            id: user.user?.uid);
+        await AuthService.addUser(userModel);
+        Future.delayed(Duration(milliseconds: 1750), () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            HomeScreen.tag,
+            (route) => false,
+          );
+        });
+      }
+      return user;
+    } on FirebaseAuthException catch (e) {
+      DialogUtils.hideLoding(context);
+
+      snack("${"error".tr()} : $e", context);
+      return Future.error(e);
+    } catch (e) {
+      DialogUtils.hideLoding(context);
+
+      snack("something_went_wrong", context);
+      return Future.error(e);
+    }
+  }
+
   Future<void> signOut(BuildContext context) async {
-    GoogleSignIn googleSignOut = GoogleSignIn();
-    googleSignOut.disconnect();
-    await FirebaseAuth.instance.signOut();
+    // GoogleSignIn googleSignOut = GoogleSignIn();
+    // googleSignOut.disconnect();
+    // await FirebaseAuth.instance.signOut();
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+
+    if (user != null) {
+      for (var provider in user.providerData) {
+        if (provider.providerId == 'google.com') {
+          // Google sign-out
+          GoogleSignIn googleSignOut = GoogleSignIn();
+          await googleSignOut.disconnect();
+        } else if (provider.providerId == 'facebook.com') {
+          // Facebook sign-out
+          await FacebookAuth.instance.logOut();
+        }
+      }
+    }
+
+    // Sign out from Firebase (common for all providers)
+    await auth.signOut();
   }
 
   void snack(String message, BuildContext context) {
@@ -176,3 +242,4 @@ class AuthService {
         fontSize: 16.0);
   }
 }
+///kG2xW1woXF70OMAJ2o+Nlt1e+q8=

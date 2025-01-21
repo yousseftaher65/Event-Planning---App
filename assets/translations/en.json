@@ -96,5 +96,6 @@
     "no_favorite_events_found" : "No favorite events found.",
     "user" : "User",
     "this_field_is_required" : "This field is required.",
-    "please_select_date_and_time" : "Please select date and time."
+    "please_select_date_and_time" : "Please select date and time.",
+    "login_with_facebook" : "Login with Facebook"
 }

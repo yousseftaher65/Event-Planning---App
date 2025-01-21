@@ -171,6 +171,35 @@ class LoginScreen extends StatelessWidget {
                               ],
                             ),
                           ),
+                          SizedBox(height: 24),
+                          ElevatedButton(
+                            onPressed: () async {
+                             await provider.signInWithFacebook(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              side: BorderSide(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "login_with_facebook".tr(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                ),
+                                SizedBox(width: 8),
+                                Icon(
+                                  Icons.facebook, color: Color(0xFF1877F2), size: 35,),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
